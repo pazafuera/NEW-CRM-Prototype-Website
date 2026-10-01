@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Costco Retail Media</title>
+    <!-- Tailwind CSS script -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Costco Brand Color Configuration -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              costco: {
+                blue: '#0060A9',
+                red: '#E31837',
+                darkBlue: '#003B6D',
+                lightBg: '#F4F6F8'
+              }
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
