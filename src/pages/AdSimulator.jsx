@@ -107,40 +107,45 @@ const ProductCard = ({ product, isSponsored = false }) => {
         />
       </div>
       
-      <div className="flex flex-col flex-grow">
-        <div className="text-lg font-bold text-gray-900 mb-1">
-          ${product.price}
-        </div>
-        
-        <h2 className="text-sm text-blue-700 hover:underline cursor-pointer mb-2 line-clamp-3">
-          {product.title}
-        </h2>
-        
-        <div className="flex items-center space-x-1 mb-2">
-          <div className="flex text-yellow-500">
-            <Star size={14} fill="currentColor" />
-            <Star size={14} fill="currentColor" />
-            <Star size={14} fill="currentColor" />
-            <Star size={14} fill="currentColor" />
-            {product.rating > 4.5 ? <Star size={14} fill="currentColor" /> : <StarHalf size={14} fill="currentColor" />}
+      <div className="flex flex-col flex-grow justify-between">
+        <div>
+          <div className="text-lg font-bold text-gray-900 mb-1">
+            ${product.price}
           </div>
-          <span className="text-xs text-gray-500">({product.reviews})</span>
+          
+          <h2 className="text-sm text-blue-700 hover:underline cursor-pointer mb-2 line-clamp-3">
+            {product.title}
+          </h2>
+          
+          <div className="flex items-center space-x-1 mb-2">
+            <div className="flex text-yellow-500">
+              <Star size={14} fill="currentColor" />
+              <Star size={14} fill="currentColor" />
+              <Star size={14} fill="currentColor" />
+              <Star size={14} fill="currentColor" />
+              {product.rating > 4.5 ? <Star size={14} fill="currentColor" /> : <StarHalf size={14} fill="currentColor" />}
+            </div>
+            <span className="text-xs text-gray-500">({product.reviews})</span>
+          </div>
+
+          <div className="text-xs text-gray-600 mb-4 font-semibold">
+            {product.delivery}
+          </div>
         </div>
 
-        <div className="text-xs text-gray-600 mb-4 font-semibold">
-          {product.delivery}
-        </div>
-        
-        <div className="mt-auto pt-2 flex flex-col">
+        {/* Fixed Footer Slot ensures Add buttons are strictly aligned across all cards */}
+        <div className="pt-2 flex flex-col justify-end min-h-[44px]">
           <button className="w-full bg-[#0060a9] hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition-colors text-sm">
             Add
           </button>
           
-          {/* Native-style lighter sponsored text at bottom right */}
-          {isSponsored && (
-            <div className="text-[10px] text-gray-400 self-end mt-1 font-normal tracking-wide">
+          {/* Lighter Sponsored tag placed below the Add button without shifting it */}
+          {isSponsored ? (
+            <div className="text-[10px] text-gray-400 self-end mt-1 leading-none font-normal tracking-wide h-3">
               Sponsored
             </div>
+          ) : (
+            <div className="h-3" />
           )}
         </div>
       </div>
@@ -153,9 +158,6 @@ const SponsoredBrandAd = ({ isVideo, isTile, className }) => {
     return (
       <div className={`flex flex-col border border-gray-200 h-full w-full bg-white shadow-sm overflow-hidden group cursor-pointer hover:border-gray-300 ${className}`}>
         <div className={`h-32 flex items-center justify-center text-center relative overflow-hidden ${isVideo ? 'bg-slate-100' : 'bg-white border-b border-gray-100'}`}>
-          <div className="absolute top-1 right-1 text-[9px] uppercase z-10 text-gray-400">
-            Sponsored
-          </div>
           {isVideo ? (
             <div className="w-full h-full relative">
               <img src="https://placehold.co/400x300/e2e8f0/475569?text=Brand+Video" className="w-full h-full object-cover" alt="Brand Video Placeholder" />
@@ -177,7 +179,14 @@ const SponsoredBrandAd = ({ isVideo, isTile, className }) => {
             <p className="text-sm font-bold text-gray-900 line-clamp-2 mb-1">Advanced Hair Science</p>
             <p className="text-xs text-gray-500 line-clamp-2 mb-2">Deep nourishment for 48H of silky hair.</p>
           </div>
-          <div className="text-xs text-[#0060a9] font-bold group-hover:underline">Shop the Collection &rsaquo;</div>
+          
+          {/* Bottom CTA with Sponsored Tag placed below */}
+          <div className="flex flex-col mt-auto pt-2">
+            <div className="text-xs text-[#0060a9] font-bold group-hover:underline">Shop the Collection &rsaquo;</div>
+            <div className="text-[10px] text-gray-400 self-end mt-1 leading-none font-normal">
+              Sponsored
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -277,7 +286,6 @@ const SponsoredDisplayAd = ({ isTile, isCarousel = false, className = '' }) => {
     },
   ];
 
-  // Rotation enabled ONLY for the top full-width banner
   useEffect(() => {
     if (isCarousel) {
       const timer = setInterval(() => {
@@ -290,10 +298,6 @@ const SponsoredDisplayAd = ({ isTile, isCarousel = false, className = '' }) => {
   if (isTile) {
     return (
       <div className={`flex flex-col border border-gray-200 bg-white h-full w-full relative group cursor-pointer hover:shadow-lg transition-all overflow-hidden ${className}`}>
-        <div className="absolute top-1 right-1 bg-white/90 px-1.5 py-0.5 rounded-sm text-[9px] text-gray-400 z-20 shadow-sm backdrop-blur-sm">
-          Sponsored
-        </div>
-        
         <div className="w-full aspect-square bg-slate-100 relative overflow-hidden">
           <img src="https://placehold.co/400x400/e2e8f0/334155?text=Featured+Brand+Offer" alt="Sponsored Content" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         </div>
@@ -304,9 +308,15 @@ const SponsoredDisplayAd = ({ isTile, isCarousel = false, className = '' }) => {
             <div className="font-bold text-gray-900 leading-tight mb-1 text-sm line-clamp-2">Buy $100, Get $25</div>
             <div className="text-xs text-gray-600 line-clamp-2">Stock up on P&G favorites and receive a digital shop card.</div>
           </div>
-          <button className="mt-3 w-full bg-white border border-[#0060a9] text-[#0060a9] font-bold py-1.5 px-4 rounded hover:bg-[#0060a9] hover:text-white transition-colors text-xs shadow-sm">
-            Shop Now
-          </button>
+          
+          <div className="mt-3 flex flex-col">
+            <button className="w-full bg-white border border-[#0060a9] text-[#0060a9] font-bold py-1.5 px-4 rounded hover:bg-[#0060a9] hover:text-white transition-colors text-xs shadow-sm">
+              Shop Now
+            </button>
+            <div className="text-[10px] text-gray-400 self-end mt-1 leading-none font-normal">
+              Sponsored
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -320,7 +330,6 @@ const SponsoredDisplayAd = ({ isTile, isCarousel = false, className = '' }) => {
         Sponsored
       </div>
 
-      {/* Carousel Controls only for top banner */}
       {isCarousel && (
         <>
           <button 
@@ -443,7 +452,6 @@ const Sidebar = ({ adSettings }) => (
 );
 
 export default function AdSimulator() {
-  // Pre-selected configurations exactly matching the screenshot
   const [adSettings, setAdSettings] = useState({
     fullWidthTop: { enabled: true, format: 'Sponsored Display' },
     aboveGrid: { enabled: true, format: 'Sponsored Brand (Logo Only)' },
@@ -566,7 +574,7 @@ export default function AdSimulator() {
 
         <RetailHeader />
         
-        {/* Full Width Top Banner (Includes Carousel) */}
+        {/* Full Width Top Banner */}
         {adSettings.fullWidthTop.enabled && (
           <div className="container mx-auto max-w-7xl px-4 mt-6">
             <AdRenderer format={adSettings.fullWidthTop.format} isCarousel={true} />
