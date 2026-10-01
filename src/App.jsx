@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 import Home from './pages/home';
 import Solutions from './pages/solutions';
 import Velocity from './pages/velocity';
-import Updates from './pages/updates';
+import Updates from './pages/updates'; 
 
 export default function App() {
   return (
