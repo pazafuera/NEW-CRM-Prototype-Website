@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Search, ShoppingCart, User, Menu, Star, StarHalf, 
-  ChevronDown, Filter, MapPin, LayoutTemplate, Play, Info,
+  ChevronDown, Filter, MapPin, LayoutTemplate, Play,
   ChevronLeft, ChevronRight
 } from 'lucide-react';
 
@@ -98,13 +98,7 @@ const RetailHeader = () => (
 
 const ProductCard = ({ product, isSponsored = false }) => {
   return (
-    <div className={`flex flex-col group border p-3 transition-all duration-200 bg-white h-full relative ${isSponsored ? 'border-blue-100 shadow-sm bg-blue-50/10' : 'border-transparent hover:border-gray-300 hover:shadow-lg'}`}>
-      {isSponsored && (
-        <div className="text-[11px] text-gray-500 mb-2 flex items-center justify-between">
-          <span className="font-semibold text-[#0060a9]">Sponsored</span>
-          <Info size={12} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600" />
-        </div>
-      )}
+    <div className="flex flex-col group border border-transparent hover:border-gray-300 hover:shadow-lg p-3 transition-all duration-200 bg-white h-full relative">
       <div className="relative w-full aspect-square mb-4 flex items-center justify-center overflow-hidden">
         <img 
           src={product.image} 
@@ -137,24 +131,30 @@ const ProductCard = ({ product, isSponsored = false }) => {
           {product.delivery}
         </div>
         
-        <div className="mt-auto pt-2">
+        <div className="mt-auto pt-2 flex flex-col">
           <button className="w-full bg-[#0060a9] hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition-colors text-sm">
             Add
           </button>
+          
+          {/* Native-style lighter sponsored text at bottom right */}
+          {isSponsored && (
+            <div className="text-[10px] text-gray-400 self-end mt-1 font-normal tracking-wide">
+              Sponsored
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-// Softer Sponsored Brand Ad (Softer slate background instead of heavy black)
 const SponsoredBrandAd = ({ isVideo, isTile, className }) => {
   if (isTile) {
     return (
       <div className={`flex flex-col border border-gray-200 h-full w-full bg-white shadow-sm overflow-hidden group cursor-pointer hover:border-gray-300 ${className}`}>
         <div className={`h-32 flex items-center justify-center text-center relative overflow-hidden ${isVideo ? 'bg-slate-100' : 'bg-white border-b border-gray-100'}`}>
-          <div className="absolute top-1 right-1 text-[9px] uppercase flex items-center z-10 text-gray-400">
-            Sponsored <Info size={10} className="ml-1" />
+          <div className="absolute top-1 right-1 text-[9px] uppercase z-10 text-gray-400">
+            Sponsored
           </div>
           {isVideo ? (
             <div className="w-full h-full relative">
@@ -185,10 +185,9 @@ const SponsoredBrandAd = ({ isVideo, isTile, className }) => {
 
   return (
     <div className={`flex flex-col md:flex-row w-full border border-gray-200 bg-white overflow-hidden shadow-sm ${className}`}>
-      {/* 35% Branded Section (Soft Slate Styling) */}
       <div className={`w-full md:w-[35%] p-4 md:p-5 flex flex-col justify-center relative overflow-hidden shrink-0 ${isVideo ? 'bg-slate-100 text-gray-900' : 'bg-white text-gray-800'}`}>
-        <div className={`absolute top-2 left-2 text-[10px] flex items-center z-20 text-gray-400`}>
-          Sponsored <Info size={12} className="ml-1 cursor-pointer hover:text-gray-600" />
+        <div className="absolute top-2 left-2 text-[10px] text-gray-400 z-20">
+          Sponsored
         </div>
 
         {isVideo ? (
@@ -228,7 +227,6 @@ const SponsoredBrandAd = ({ isVideo, isTile, className }) => {
         )}
       </div>
       
-      {/* 65% Product Carousel Section */}
       <div className="w-full md:w-[65%] p-3 flex gap-3 overflow-x-auto hide-scrollbar items-stretch bg-gray-50 border-l border-gray-200">
         {MOCK_PRODUCTS.slice(4, 9).map((p) => (
           <div key={`brand-prod-${p.id}`} className="min-w-[130px] max-w-[130px] flex flex-col group cursor-pointer hover:shadow-lg p-2.5 transition-shadow border border-transparent hover:border-gray-300 h-full bg-white rounded shadow-sm">
@@ -248,7 +246,6 @@ const SponsoredBrandAd = ({ isVideo, isTile, className }) => {
             </div>
           </div>
         ))}
-        {/* "See More" Card */}
         <div className="min-w-[130px] max-w-[130px] flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-shadow border border-gray-200 bg-white rounded shadow-sm group">
           <div className="w-10 h-10 rounded-full border-2 border-[#0060a9] text-[#0060a9] flex items-center justify-center group-hover:bg-[#0060a9] group-hover:text-white transition-colors mb-2">
             <span className="text-lg font-bold leading-none mb-0.5">&rsaquo;</span>
@@ -260,8 +257,7 @@ const SponsoredBrandAd = ({ isVideo, isTile, className }) => {
   );
 };
 
-// Carousel Display Ad (Supports multi-slide rotation with nav controls)
-const SponsoredDisplayAd = ({ isTile, className }) => {
+const SponsoredDisplayAd = ({ isTile, isCarousel = false, className = '' }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const SLIDES = [
@@ -281,20 +277,21 @@ const SponsoredDisplayAd = ({ isTile, className }) => {
     },
   ];
 
+  // Rotation enabled ONLY for the top full-width banner
   useEffect(() => {
-    if (!isTile) {
+    if (isCarousel) {
       const timer = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
       }, 6000);
       return () => clearInterval(timer);
     }
-  }, [isTile, SLIDES.length]);
+  }, [isCarousel, SLIDES.length]);
 
   if (isTile) {
     return (
       <div className={`flex flex-col border border-gray-200 bg-white h-full w-full relative group cursor-pointer hover:shadow-lg transition-all overflow-hidden ${className}`}>
-        <div className="absolute top-1 right-1 bg-white/90 px-1.5 py-0.5 rounded-sm text-[9px] text-gray-500 flex items-center z-20 shadow-sm backdrop-blur-sm">
-          Sponsored <Info size={10} className="ml-1" />
+        <div className="absolute top-1 right-1 bg-white/90 px-1.5 py-0.5 rounded-sm text-[9px] text-gray-400 z-20 shadow-sm backdrop-blur-sm">
+          Sponsored
         </div>
         
         <div className="w-full aspect-square bg-slate-100 relative overflow-hidden">
@@ -319,28 +316,30 @@ const SponsoredDisplayAd = ({ isTile, className }) => {
 
   return (
     <div className={`w-full bg-gradient-to-r ${slide.bgGradient} border border-gray-300 flex flex-col md:flex-row items-center p-0 relative overflow-hidden shadow-sm mb-2 rounded-sm md:h-28 transition-all duration-500 ${className}`}>
-      {/* Sponsored Badge */}
-      <div className="absolute top-1 right-2 text-[10px] text-white/60 flex items-center z-30">
-        Sponsored <Info size={10} className="ml-1 cursor-pointer hover:text-white" />
+      <div className="absolute top-1 right-2 text-[10px] text-white/60 z-30">
+        Sponsored
       </div>
 
-      {/* Navigation Controls */}
-      <button 
-        onClick={() => setCurrentSlide((prev) => (prev === 0 ? SLIDES.length - 1 : prev - 1))}
-        className="absolute left-1 top-1/2 -translate-y-1/2 z-30 bg-black/30 hover:bg-black/60 text-white p-1 rounded-full backdrop-blur-sm transition-colors"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft size={16} />
-      </button>
-      <button 
-        onClick={() => setCurrentSlide((prev) => (prev + 1) % SLIDES.length)}
-        className="absolute right-1 top-1/2 -translate-y-1/2 z-30 bg-black/30 hover:bg-black/60 text-white p-1 rounded-full backdrop-blur-sm transition-colors"
-        aria-label="Next slide"
-      >
-        <ChevronRight size={16} />
-      </button>
+      {/* Carousel Controls only for top banner */}
+      {isCarousel && (
+        <>
+          <button 
+            onClick={() => setCurrentSlide((prev) => (prev === 0 ? SLIDES.length - 1 : prev - 1))}
+            className="absolute left-1 top-1/2 -translate-y-1/2 z-30 bg-black/30 hover:bg-black/60 text-white p-1 rounded-full backdrop-blur-sm transition-colors"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={16} />
+          </button>
+          <button 
+            onClick={() => setCurrentSlide((prev) => (prev + 1) % SLIDES.length)}
+            className="absolute right-1 top-1/2 -translate-y-1/2 z-30 bg-black/30 hover:bg-black/60 text-white p-1 rounded-full backdrop-blur-sm transition-colors"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={16} />
+          </button>
+        </>
+      )}
 
-      {/* Visual Side */}
       <div className="w-full md:w-1/4 h-20 md:h-full relative overflow-hidden flex items-center justify-center bg-white/5 backdrop-blur-sm border-b md:border-b-0 md:border-r border-white/10 shrink-0">
         <div className="relative z-10 w-full h-full flex items-center justify-center">
           <div className="bg-white p-1.5 rounded shadow-lg transform -rotate-6 z-10 absolute left-[25%]">
@@ -352,7 +351,6 @@ const SponsoredDisplayAd = ({ isTile, className }) => {
         </div>
       </div>
       
-      {/* Copy & CTA Side */}
       <div className="w-full md:w-3/4 py-3 px-8 md:px-10 flex flex-col md:flex-row items-center md:justify-between relative z-20">
         <div className="text-center md:text-left mb-3 md:mb-0 relative z-10 flex-grow pr-4">
           <div className="text-cyan-400 font-bold tracking-widest text-[10px] uppercase mb-1">{slide.tag}</div>
@@ -365,26 +363,27 @@ const SponsoredDisplayAd = ({ isTile, className }) => {
         </button>
       </div>
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex space-x-1.5 z-30">
-        {SLIDES.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrentSlide(idx)}
-            className={`h-1 rounded-full transition-all ${idx === currentSlide ? 'w-5 bg-yellow-400' : 'w-1.5 bg-white/40'}`}
-          />
-        ))}
-      </div>
+      {isCarousel && (
+        <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex space-x-1.5 z-30">
+          {SLIDES.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              className={`h-1 rounded-full transition-all ${idx === currentSlide ? 'w-5 bg-yellow-400' : 'w-1.5 bg-white/40'}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
-const AdRenderer = ({ format, isTile = false, className = '' }) => {
+const AdRenderer = ({ format, isTile = false, isCarousel = false, className = '' }) => {
   if (format === 'Sponsored Product') {
     return <ProductCard product={MOCK_PRODUCTS[8]} isSponsored={true} />;
   }
   if (format === 'Sponsored Display') {
-    return <SponsoredDisplayAd isTile={isTile} className={className} />;
+    return <SponsoredDisplayAd isTile={isTile} isCarousel={isCarousel} className={className} />;
   }
   
   const isVideo = format === 'Sponsored Brand (Image/Video)';
@@ -444,21 +443,22 @@ const Sidebar = ({ adSettings }) => (
 );
 
 export default function AdSimulator() {
+  // Pre-selected configurations exactly matching the screenshot
   const [adSettings, setAdSettings] = useState({
-    fullWidthTop: { enabled: true, format: 'Sponsored Brand (Image/Video)' },
-    aboveGrid: { enabled: false, format: 'Sponsored Display' },
+    fullWidthTop: { enabled: true, format: 'Sponsored Display' },
+    aboveGrid: { enabled: true, format: 'Sponsored Brand (Logo Only)' },
     sponsoredTiles: { enabled: true, format: 'Sponsored Product' },
     inGridDisplayTiles: { enabled: true, format: 'Sponsored Display' },
-    inGridRows: { enabled: true, format: 'Sponsored Brand (Logo Only)' },
-    leftRail: { enabled: false, format: 'Sponsored Display' },
-    fullWidthBottom: { enabled: false, format: 'Sponsored Display' }
+    inGridRows: { enabled: true, format: 'Mixed (Brand / Display)' },
+    leftRail: { enabled: true, format: 'Sponsored Brand (Image/Video)' },
+    fullWidthBottom: { enabled: true, format: 'Sponsored Display' }
   });
 
   const PLACEMENTS = [
     { id: 'fullWidthTop', label: 'Full Width (Below Header)' },
     { id: 'aboveGrid', label: 'Above Grid (Right of Rail)' },
     { id: 'sponsoredTiles', label: 'Sponsored Tiles (Slots 2,3,8,12,16)' },
-    { id: 'inGridDisplayTiles', label: 'In-Grid Display Tiles (Slots 10, 18)' }, // First display tile in row 3 (slot 10)
+    { id: 'inGridDisplayTiles', label: 'In-Grid Display Tiles (Slots 10, 18)' },
     { id: 'inGridRows', label: 'In-Grid Rows (Between 2 rows)' },
     { id: 'leftRail', label: 'Left Rail (Under Filters)' },
     { id: 'fullWidthBottom', label: 'Full Width (Above Footer)' },
@@ -471,7 +471,6 @@ export default function AdSimulator() {
     'Sponsored Product'
   ];
 
-  // Logic to build grid: In-Grid Display Tiles start at Row 3 (Slot 10)
   const renderGridItems = () => {
     const items = [];
     let pIndex = 0;
@@ -479,7 +478,6 @@ export default function AdSimulator() {
     let rowAdCount = 0;
 
     while (pIndex < MOCK_PRODUCTS.length) {
-      // 1. Evaluate In-Grid Display Tile Slots (Row 3 = Slot 10, Row 5 = Slot 18)
       if (adSettings.inGridDisplayTiles.enabled && [10, 18].includes(slot)) {
         items.push({
           id: `ad-display-tile-${slot}`,
@@ -488,7 +486,6 @@ export default function AdSimulator() {
         });
         slot++;
       }
-      // 2. Evaluate Sponsored Product Tile Slots
       else if (adSettings.sponsoredTiles.enabled && [2, 3, 8, 12, 16].includes(slot)) {
         items.push({
           id: `ad-tile-${slot}`,
@@ -497,7 +494,6 @@ export default function AdSimulator() {
         });
         slot++;
       } else {
-        // 3. Render Organic Product
         items.push({
           id: `organic-${MOCK_PRODUCTS[pIndex].id}`,
           type: 'organic',
@@ -507,7 +503,6 @@ export default function AdSimulator() {
         slot++;
       }
 
-      // 4. Evaluate In-Grid Row Sponsorship (Every 8 logical slots)
       if (adSettings.inGridRows.enabled && (slot - 1) % 8 === 0) {
         rowAdCount++;
         const rowFormat = rowAdCount === 1 
@@ -533,7 +528,7 @@ export default function AdSimulator() {
       
       <div className="min-h-screen bg-white font-sans text-gray-800 flex flex-col relative">
         
-        {/* Prototype Controls Panel */}
+        {/* Controls Panel */}
         <div className="bg-slate-100 border-b border-slate-300 p-4 z-50 text-sm">
           <div className="container mx-auto max-w-7xl px-4">
             <div className="flex items-center mb-4 font-bold text-slate-800 text-lg">
@@ -571,10 +566,10 @@ export default function AdSimulator() {
 
         <RetailHeader />
         
-        {/* Full Width Top Ad Placement */}
+        {/* Full Width Top Banner (Includes Carousel) */}
         {adSettings.fullWidthTop.enabled && (
           <div className="container mx-auto max-w-7xl px-4 mt-6">
-            <AdRenderer format={adSettings.fullWidthTop.format} />
+            <AdRenderer format={adSettings.fullWidthTop.format} isCarousel={true} />
           </div>
         )}
 
@@ -616,7 +611,7 @@ export default function AdSimulator() {
               </div>
             </div>
 
-            {/* Product Grid with Advanced Ad Placements */}
+            {/* Product Grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-6">
               {renderGridItems().map((item) => {
                 if (item.type === 'tile') {
@@ -644,7 +639,7 @@ export default function AdSimulator() {
               })}
             </div>
             
-            {/* Pagination Placeholder */}
+            {/* Pagination */}
             <div className="mt-12 flex justify-center">
               <div className="flex space-x-1 text-sm">
                 <button className="px-3 py-1 border text-gray-400 cursor-not-allowed">Previous</button>
@@ -659,14 +654,13 @@ export default function AdSimulator() {
           </div>
         </main>
 
-        {/* Full Width Bottom Ad Placement */}
+        {/* Full Width Bottom Banner */}
         {adSettings.fullWidthBottom.enabled && (
           <div className="container mx-auto max-w-7xl px-4 mt-6 mb-8">
             <AdRenderer format={adSettings.fullWidthBottom.format} />
           </div>
         )}
 
-        {/* Basic Footer Mock */}
         <footer className="bg-gray-100 border-t mt-12 py-8">
           <div className="container mx-auto max-w-6xl px-4 text-center text-sm text-gray-600">
             <p>&copy; 1998 &mdash; 2026 Costco Wholesale Corporation. All rights reserved.</p>
