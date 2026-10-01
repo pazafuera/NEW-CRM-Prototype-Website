@@ -22,6 +22,7 @@ export default function App() {
             <Route path="/solutions" element={<Solutions />} />
             <Route path="/velocity" element={<Velocity />} />
             <Route path="/updates" element={<Updates />} />
+            <Route path="/mockups" element={<Mockups />} />
           </Routes>
         </main>
 
