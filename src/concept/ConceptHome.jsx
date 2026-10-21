@@ -390,7 +390,7 @@ export default function ConceptHome() {
               </p>
             </div>
             <Link
-              to="/solutions"
+              to="/concept/solutions"
               className="bg-costco-blue hover:bg-costco-darkBlue text-white font-bold px-8 py-4 rounded-full shadow-lg transition-all inline-flex items-center gap-2 shrink-0"
             >
               Explore Solutions <ArrowRight className="w-4 h-4" />

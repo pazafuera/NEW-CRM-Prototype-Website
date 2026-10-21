@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 
 import Home from './pages/home';
 import ConceptHome from './concept/ConceptHome';
+import ConceptSolutions from './concept/ConceptSolutions';
 import Solutions from './pages/solutions';
 import Velocity from './pages/velocity';
 import Updates from './pages/updates';
@@ -33,6 +34,7 @@ export default function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/concept" element={<ConceptHome />} />
+                  <Route path="/concept/solutions" element={<ConceptSolutions />} />
                   <Route path="/solutions" element={<Solutions />} />
                   <Route path="/velocity" element={<Velocity />} />
                   <Route path="/updates" element={<Updates />} />
