@@ -510,8 +510,8 @@ export default function ConceptHome() {
       <section className="py-20 lg:py-28 w-full bg-white">
         <div className="container-custom">
           <AisleSign number="06" label="Digital" />
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-14 max-w-3xl">
-            The warehouse is famous. Digital is the growth.
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-14">
+            The warehouse is famous. Digital is growing, too.
           </h2>
 
           <div className="border-2 border-gray-900 p-8 lg:p-12">
