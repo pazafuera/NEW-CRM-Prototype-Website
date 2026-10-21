@@ -21,10 +21,7 @@ export default function Home() {
 
         <div className="container-custom relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-blue-100 mb-6">
-              <ShieldCheck className="w-4 h-4 text-blue-300" />
-              <span>Growing Sales Together</span>
-            </div>
+            
 
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-none mb-6">
               Retail Media Like Only Costco Can Deliver.
@@ -85,7 +82,7 @@ export default function Home() {
               {/* Bottom 3-Column Secondary Metrics */}
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <p className="text-3xl font-bold text-gray-900">92%</p>
+                  <p className="text-3xl font-bold text-gray-900">93%</p>
                   <p className="text-xs text-gray-500 font-medium">
                     Renewal Rate
                   </p>
@@ -107,8 +104,8 @@ export default function Home() {
               <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 flex items-center space-x-3">
                 <TrendingUp className="w-8 h-8 text-costco-blue flex-shrink-0" />
                 <p className="text-xs text-gray-600 font-medium leading-normal">
-                  Transparent closed-loop attribution directly linking media
-                  investments to warehouse and eCommerce sales.
+                  Closed-loop attribution directly linking media
+                  exposure to warehouse and eCommerce sales.
                 </p>
               </div>
             </div>
@@ -122,14 +119,13 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-6">
             <div className="max-w-3xl">
               <h2 className="text-xs font-extrabold uppercase tracking-widest text-costco-red mb-3">
-                Omnichannel Channels
+                Omnichannel Solutions
               </h2>
               <h3 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight">
-                Engage Members Anywhere They Shop
+                A 3-pack of Ways to Engage Members
               </h3>
               <p className="text-gray-600 text-lg mt-4">
-                From top-of-search listings on Costco.com to Connected TV and
-                high-foot-traffic in-warehouse displays.
+                Our platform and services will help you reach and engage members online, in-warehouse, and everywhere in between.
               </p>
             </div>
             <Link
