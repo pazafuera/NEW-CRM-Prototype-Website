@@ -177,18 +177,26 @@ export default function ConceptHome() {
               Built to drive velocity.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="#concept-contact"
+              <button
+                onClick={() =>
+                  document
+                    .getElementById('concept-contact')
+                    ?.scrollIntoView({ behavior: 'smooth' })
+                }
                 className="bg-costco-red hover:bg-red-700 text-white font-bold text-center px-8 py-4 rounded-full shadow-lg transition-all"
               >
                 Meet With Us
-              </a>
-              <a
-                href="#concept-deal"
+              </button>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById('concept-deal')
+                    ?.scrollIntoView({ behavior: 'smooth' })
+                }
                 className="bg-transparent hover:bg-white/10 text-white border-2 border-white/60 font-semibold text-center px-8 py-4 rounded-full transition-all inline-flex items-center justify-center gap-2"
               >
                 How It Works <ArrowDown className="w-4 h-4" />
-              </a>
+              </button>
             </div>
           </div>
 
