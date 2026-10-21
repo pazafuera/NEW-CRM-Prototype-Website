@@ -164,18 +164,10 @@ export default function ConceptHome() {
 
   return (
     <div className="w-full bg-white">
-      {/* Concept marker */}
-      <div className="bg-gray-950 text-white text-center text-xs font-bold tracking-[0.2em] uppercase py-2 px-4">
-        Concept — a refreshed direction for Costco Retail Media
-      </div>
-
       {/* ---------- HERO (same layout as the current home page) ---------- */}
       <section className="bg-costco-darkBlue text-white py-20 lg:py-28 w-full">
         <div className="container-custom grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7">
-            <p className="text-sm font-extrabold uppercase tracking-[0.25em] text-blue-200 mb-6">
-              Costco Retail Media — Powered by Costco Velocity
-            </p>
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[0.95] mb-6">
               Retail media,
               <br />
@@ -202,12 +194,6 @@ export default function ConceptHome() {
 
           {/* By-the-numbers card — U.S. figures */}
           <div className="lg:col-span-5 bg-white text-gray-900 p-8 lg:p-10 shadow-2xl">
-            <div className="border-b-2 border-gray-900 pb-4 mb-6 flex items-baseline justify-between">
-              <span className="text-xs font-extrabold uppercase tracking-widest text-costco-blue">
-                Costco in the U.S.
-              </span>
-              <span className="text-xs font-semibold text-gray-500">FY2026</span>
-            </div>
             <div className="grid grid-cols-2 gap-x-6 gap-y-8">
               <div>
                 <p className="text-4xl lg:text-5xl font-extrabold text-costco-darkBlue tracking-tight">
@@ -529,65 +515,52 @@ export default function ConceptHome() {
           </h2>
 
           <div className="border-2 border-gray-900 p-8 lg:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              {/* Stats grid */}
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
-                <div>
-                  <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight">
-                    150M+
-                  </p>
-                  <p className="font-bold text-gray-900 mt-1">Active cardholders</p>
-                </div>
-                <div>
-                  <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight">
-                    $33B+
-                  </p>
-                  <p className="font-bold text-gray-900 mt-1">
-                    Digitally enabled sales in FY26
-                  </p>
-                </div>
-                <div>
-                  <p className="text-5xl lg:text-6xl font-extrabold text-costco-red tracking-tight">
-                    30%
-                  </p>
-                  <p className="font-bold text-gray-900 mt-1">
-                    Digital traffic increase in FY26
-                  </p>
-                </div>
-                <div>
-                  <p className="text-5xl lg:text-6xl font-extrabold text-costco-red tracking-tight">
-                    20.9%
-                  </p>
-                  <p className="font-bold text-gray-900 mt-1">
-                    Digital sales growth in FY26
-                  </p>
-                </div>
-              </div>
-
-              {/* Venn: how members shop */}
-              <div className="lg:col-span-5">
-                <p className="font-extrabold text-gray-900 text-lg mb-4 text-center lg:text-left">
-                  40% of members shop online
+            {/* Stats row */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-12">
+              <div>
+                <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight">
+                  $33B+
                 </p>
-                <svg viewBox="0 0 400 240" className="w-full h-auto" role="img" aria-label="Diagram: 2% of members shop online only, 38% shop both online and in warehouse, 60% shop warehouse only">
-                  <circle cx="155" cy="120" r="95" fill="#0060A9" fillOpacity="0.9" />
-                  <circle cx="245" cy="120" r="95" fill="#E31837" fillOpacity="0.82" />
-                  <text x="105" y="105" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">eComm</text>
-                  <text x="105" y="123" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">Only</text>
-                  <text x="105" y="152" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="24" fill="#ffffff">2%</text>
-                  <text x="200" y="108" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">Both</text>
-                  <text x="200" y="140" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="26" fill="#ffffff">38%</text>
-                  <text x="295" y="105" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">Warehouse</text>
-                  <text x="295" y="123" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">Only</text>
-                  <text x="295" y="152" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="24" fill="#ffffff">60%</text>
-                </svg>
-                <p className="text-sm text-gray-600 leading-relaxed mt-4">
-                  <strong className="text-gray-900">
-                    Many warehouse-only members are digitally engaged
-                  </strong>{' '}
-                  — they receive emails, visit Costco.com, and use a
-                  digital membership card. Digital reaches members
-                  wherever the trip begins.
+                <p className="font-bold text-gray-900 mt-1">
+                  Digitally enabled sales in FY26
+                </p>
+              </div>
+              <div>
+                <p className="text-5xl lg:text-6xl font-extrabold text-costco-red tracking-tight">
+                  30%
+                </p>
+                <p className="font-bold text-gray-900 mt-1">
+                  Digital traffic increase in FY26
+                </p>
+              </div>
+              <div>
+                <p className="text-5xl lg:text-6xl font-extrabold text-costco-red tracking-tight">
+                  20.9%
+                </p>
+                <p className="font-bold text-gray-900 mt-1">
+                  Digital sales growth in FY26
+                </p>
+              </div>
+            </div>
+
+            {/* Engagement note */}
+            <div className="border-t border-gray-200 mt-12 pt-10 grid grid-cols-1 sm:grid-cols-2 gap-10">
+              <div className="flex items-baseline gap-4">
+                <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight shrink-0">
+                  40%
+                </p>
+                <p className="font-bold text-gray-900 leading-snug">
+                  Of members actively shop online
+                </p>
+              </div>
+              <div className="flex items-baseline gap-4">
+                <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight shrink-0">
+                  XX%
+                </p>
+                <p className="font-bold text-gray-900 leading-snug">
+                  Are digitally engaged — including warehouse members who
+                  receive emails, visit Costco.com, and use a digital
+                  membership card
                 </p>
               </div>
             </div>
@@ -698,10 +671,10 @@ export default function ConceptHome() {
             Canada) — Costco Wholesale Corporation fiscal 2026
             operating results, year ended August 30, 2026. Assortment
             size (fewer than 4,000 active SKUs per warehouse) — Costco
-            Wholesale fiscal 2025 Form 10-K. Digital figures (active
-            cardholders, digitally enabled sales, digital traffic and
-            sales growth, member shopping behaviour) — Costco internal,
-            fiscal 2026. This page is a design concept for discussion.
+            Wholesale fiscal 2025 Form 10-K. Digital figures (digitally
+            enabled sales, digital traffic and sales growth, member
+            online shopping and digital engagement) — Costco internal,
+            fiscal 2026.
           </p>
         </div>
       </section>
