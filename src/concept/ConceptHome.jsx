@@ -59,6 +59,103 @@ function BigStat({ value, label, sub }) {
   );
 }
 
+/* Flat in-page illustration: a warehouse aisle — pallets, racking, a member with a cart. */
+function WarehouseArt() {
+  return (
+    <svg viewBox="0 0 560 420" className="w-full h-auto" role="img" aria-label="Illustration of a Costco warehouse aisle">
+      <rect width="560" height="420" fill="#F4F6F8" />
+      {/* ceiling + lights */}
+      <rect width="560" height="54" fill="#003B6D" />
+      {[70, 210, 350, 480].map((x) => (
+        <g key={x}>
+          <rect x={x} y="54" width="6" height="26" fill="#9db8cc" />
+          <rect x={x - 22} y="80" width="50" height="12" rx="6" fill="#ffd34d" />
+        </g>
+      ))}
+      {/* aisle sign */}
+      <g>
+        <rect x="238" y="98" width="84" height="64" fill="#ffffff" stroke="#003B6D" strokeWidth="5" />
+        <text x="280" y="146" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="38" fill="#003B6D">01</text>
+      </g>
+      {/* left racking with pallet boxes */}
+      <g>
+        <rect x="30" y="150" width="14" height="230" fill="#E31837" />
+        <rect x="196" y="150" width="14" height="230" fill="#E31837" />
+        <rect x="30" y="212" width="180" height="10" fill="#E31837" />
+        <rect x="30" y="292" width="180" height="10" fill="#E31837" />
+        <rect x="52" y="164" width="58" height="44" fill="#d9a45b" />
+        <rect x="118" y="164" width="58" height="44" fill="#c68f3e" />
+        <rect x="52" y="244" width="58" height="44" fill="#c68f3e" />
+        <rect x="118" y="244" width="58" height="44" fill="#d9a45b" />
+        <rect x="46" y="330" width="150" height="16" fill="#8a5a2b" />
+        <rect x="56" y="306" width="130" height="24" fill="#e3b96f" />
+      </g>
+      {/* right pallet stack */}
+      <g>
+        <rect x="392" y="238" width="140" height="20" fill="#8a5a2b" />
+        <rect x="402" y="186" width="120" height="52" fill="#d9a45b" />
+        <rect x="402" y="258" width="120" height="52" fill="#c68f3e" />
+        <rect x="392" y="310" width="140" height="20" fill="#8a5a2b" />
+        {/* price sign */}
+        <rect x="416" y="118" width="92" height="52" fill="#ffffff" stroke="#111" strokeWidth="3" />
+        <text x="462" y="153" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="26" fill="#111">14.99</text>
+      </g>
+      {/* floor */}
+      <rect y="380" width="560" height="40" fill="#d7dde3" />
+      {/* member + cart */}
+      <g>
+        <circle cx="292" cy="252" r="17" fill="#f2c09a" />
+        <path d="M292 235 q4 -14 17 -10 q-2 12 -10 14 q-8 2 -7 -4" fill="#5b3a1e" />
+        <rect x="276" y="269" width="32" height="58" rx="8" fill="#0060A9" />
+        <rect x="284" y="327" width="9" height="42" fill="#33404d" />
+        <rect x="296" y="327" width="9" height="42" fill="#33404d" />
+        <rect x="300" y="282" width="42" height="7" rx="3" fill="#0060A9" transform="rotate(18 300 282)" />
+        {/* flat cart */}
+        <g stroke="#7c8a96" strokeWidth="4" fill="none">
+          <path d="M342 292 h74 l-10 44 h-58 z" fill="#e8edf1" />
+          <path d="M348 306 h62 M352 320 h54" strokeWidth="3" />
+        </g>
+        <rect x="362" y="262" width="34" height="30" fill="#E31837" />
+        <circle cx="356" cy="352" r="8" fill="#33404d" />
+        <circle cx="404" cy="352" r="8" fill="#33404d" />
+      </g>
+    </svg>
+  );
+}
+
+/* Flat in-page illustration: the membership card — the relationship, in your wallet. */
+function MembershipArt() {
+  return (
+    <svg viewBox="0 0 560 420" className="w-full h-auto" role="img" aria-label="Illustration of a Costco membership card">
+      <rect width="560" height="420" fill="#ffffff" />
+      <circle cx="472" cy="66" r="90" fill="#F4F6F8" />
+      <circle cx="60" cy="368" r="110" fill="#F4F6F8" />
+      {/* back card */}
+      <g transform="rotate(7 300 215)">
+        <rect x="128" y="92" width="330" height="208" rx="16" fill="#111827" />
+        <rect x="128" y="126" width="330" height="34" fill="#c9a227" />
+        <text x="152" y="205" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="24" fill="#ffffff">EXECUTIVE MEMBER</text>
+        <text x="152" y="238" fontFamily="Arial, sans-serif" fontSize="14" fill="#9ca3af">THE CARD THAT RENEWS</text>
+      </g>
+      {/* front card */}
+      <g transform="rotate(-5 260 220)">
+        <rect x="86" y="118" width="330" height="208" rx="16" fill="#ffffff" stroke="#d1d5db" strokeWidth="2" />
+        <rect x="86" y="118" width="330" height="56" rx="16" fill="#0060A9" />
+        <rect x="86" y="150" width="330" height="24" fill="#0060A9" />
+        <text x="110" y="156" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="27" fill="#ffffff">Costco</text>
+        <text x="238" y="156" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="15" fill="#bcd7ee">MEMBER CARD</text>
+        <rect x="110" y="196" width="46" height="34" rx="5" fill="#e5c15c" />
+        <circle cx="352" cy="238" r="30" fill="#F4F6F8" stroke="#d1d5db" strokeWidth="2" />
+        <circle cx="352" cy="228" r="11" fill="#9db8cc" />
+        <path d="M332 258 q20 -18 40 0" stroke="#9db8cc" strokeWidth="7" fill="none" />
+        <text x="110" y="262" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="17" fill="#111827">A. MEMBER</text>
+        <text x="110" y="288" fontFamily="Arial, sans-serif" fontSize="13" fill="#6b7280">MEMBER SINCE 2016 · RENEWS EVERY YEAR</text>
+        <rect x="86" y="304" width="330" height="8" fill="#E31837" />
+      </g>
+    </svg>
+  );
+}
+
 export default function ConceptHome() {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -84,16 +181,8 @@ export default function ConceptHome() {
               <br />
               the Costco way.
             </h1>
-            <p className="text-xl sm:text-2xl font-bold text-white mb-4">
-              Built to sell merchandise.
-            </p>
-            <p className="text-lg text-blue-100 mb-10 max-w-2xl leading-relaxed">
-              Costco members pay to shop here. They come to discover
-              something new, and they buy in quantities that last for
-              months. Costco Retail Media puts your brand inside that
-              relationship — on Costco.com, beyond it, and in the
-              warehouse — and measures success the way Costco does: in
-              sales.
+            <p className="text-xl sm:text-2xl font-bold text-white mb-10">
+              Built to drive velocity.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
@@ -122,10 +211,10 @@ export default function ConceptHome() {
             <div className="grid grid-cols-2 gap-x-6 gap-y-8">
               <div>
                 <p className="text-4xl lg:text-5xl font-extrabold text-costco-darkBlue tracking-tight">
-                  647
+                  650+
                 </p>
                 <p className="text-sm font-semibold text-gray-600 mt-1">
-                  Warehouses in the U.S. &amp; Puerto Rico
+                  U.S. warehouses
                 </p>
               </div>
               <div>
@@ -138,10 +227,10 @@ export default function ConceptHome() {
               </div>
               <div>
                 <p className="text-4xl lg:text-5xl font-extrabold text-costco-darkBlue tracking-tight">
-                  &lt;4,000
+                  90M+
                 </p>
                 <p className="text-sm font-semibold text-gray-600 mt-1">
-                  Items in a warehouse — curated, on purpose
+                  U.S. cardholders
                 </p>
               </div>
               <div>
@@ -149,7 +238,7 @@ export default function ConceptHome() {
                   100%
                 </p>
                 <p className="text-sm font-semibold text-gray-600 mt-1">
-                  Of shoppers are members — the card is the relationship
+                  Membership-linked transactions
                 </p>
               </div>
             </div>
@@ -157,41 +246,46 @@ export default function ConceptHome() {
         </div>
       </section>
 
-      {/* ---------- 01 THE DEAL ---------- */}
+      {/* ---------- 01 THE IDEA ---------- */}
       <section id="concept-deal" className="py-20 lg:py-28 w-full bg-white">
         <div className="container-custom">
           <AisleSign number="01" label="The idea" />
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6 max-w-3xl">
-            Media that earns its place, the same way items do.
-          </h2>
-          <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mb-6">
-            Everything in a Costco warehouse earned its space by selling.
-            Our media works the same way. Costco Retail Media exists to
-            help members find items they will love — and to help the
-            brands that sell here sell more of them, in the warehouse and
-            online.
-          </p>
-          <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mb-14">
-            The value media creates flows back into the membership —
-            into the prices and the experience that keep members
-            renewing year after year. That flywheel is the business:
-            members who trust Costco, brands that grow with Costco, and
-            media that serves both.
-          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-14">
+            <div className="lg:col-span-6">
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">
+                Merchandise and members. Both first.
+              </h2>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                At Costco there is no trade-off between the two. Great
+                merchandise is why members join and renew — and members
+                are why great merchandise sells here like nowhere else.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Costco Retail Media serves both at once: it helps members
+                discover items they will love, and helps brands sell more
+                of them. The value it creates flows back into the
+                membership — the prices and experience that keep members
+                coming back.
+              </p>
+            </div>
+            <div className="lg:col-span-6 border border-gray-200">
+              <WarehouseArt />
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Merchandise first',
-                body: 'We are retailers first. Media plans start with the item, the member and the sales goal — and our team works alongside Costco\u2019s merchandising organization to build them.',
+                title: 'Built with merchandising',
+                body: 'Plans start with the item and the sales goal, built alongside Costco\u2019s merchants.',
               },
               {
-                title: 'Members first, always',
-                body: 'Every placement is a Costco brand experience. Relevant, helpful, and worthy of the discovery members came for.',
+                title: 'A Costco experience',
+                body: 'Every placement adds to the shop members came for — relevant, helpful, discoverable.',
               },
               {
                 title: 'Measured in sales',
-                body: 'Campaigns are optimised and reported against actual sales — online and in the warehouse — with a focus on real, incremental growth.',
+                body: 'Optimised and reported against actual sales, online and in the warehouse.',
               },
             ].map((item) => (
               <div key={item.title} className="border-t-4 border-costco-darkBlue pt-5">
@@ -209,45 +303,41 @@ export default function ConceptHome() {
       <section className="py-20 lg:py-28 w-full bg-gray-50 border-y border-gray-200">
         <div className="container-custom">
           <AisleSign number="02" label="The members" />
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6 max-w-3xl">
-            Members pay to shop here. That says everything.
-          </h2>
-          <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mb-6">
-            A Costco membership is a choice people make with their own
-            money, and renewal is the strongest signal of loyalty in
-            retail — members renew because the relationship keeps
-            delivering value. That relationship is also getting younger:
-            Millennials are the majority of new signups, Gen Z is the
-            fastest-growing new member segment, and half of new signups
-            are under 40.
-          </p>
-          <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mb-14">
-            Because the relationship between Costco and its members is
-            unlike any other in retail, our retail media solutions are
-            unlike any other too — built on membership, measured in
-            sales, and designed to add to the shop rather than interrupt
-            it.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-14">
+            <div className="lg:col-span-6 border border-gray-200 bg-white order-2 lg:order-1">
+              <MembershipArt />
+            </div>
+            <div className="lg:col-span-6 order-1 lg:order-2">
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">
+                Members pay to shop here. That says everything.
+              </h2>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                Membership is a choice people make with their own money —
+                and renewal is the strongest signal of loyalty in retail.
+                Members renew because the relationship keeps delivering.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                That relationship is unique, so our retail media is too:
+                built on membership, welcomed by members, and getting
+                younger every year.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
             <BigStat
-              value="92.3%"
-              label="Renewal rate, U.S. & Canada"
-              sub="Members vote with their wallet every year — and they keep choosing Costco."
+              value="Millennials"
+              label="The majority of new signups"
+              sub="The generation now forming households is joining Costco in force."
+            />
+            <BigStat
+              value="Gen Z"
+              label="The fastest-growing new member segment"
+              sub="The next generation of members is arriving now."
             />
             <BigStat
               value="50%"
               label="Of new signups are under 40"
-              sub="A membership base that renews across generations."
-            />
-            <BigStat
-              value="#1"
-              label="Millennials lead new signups"
-              sub="The majority of new members joining Costco today."
-            />
-            <BigStat
-              value="Fastest"
-              label="Gen Z is the fastest-growing new member segment"
-              sub="The next generation of members is arriving now."
+              sub="A membership base that renews — and refreshes — across generations."
             />
           </div>
         </div>
@@ -262,67 +352,35 @@ export default function ConceptHome() {
               <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">
                 The treasure hunt starts before the trip.
               </h2>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6 max-w-2xl">
-                Ask a member why they love Costco and they will describe
-                discovery: the treasure hunt, the unexpected find, the
-                item they didn&rsquo;t come for and can&rsquo;t stop
-                talking about. A tightly curated assortment makes that
-                possible — with fewer than 4,000 items in a warehouse,
-                every item is findable, and every find feels earned.
-              </p>
               <p className="text-lg text-gray-700 leading-relaxed max-w-2xl">
-                Curation is also efficiency. Each item in the building
-                carries far more sales than in a typical store, which
-                keeps costs low and value high — and makes a placement
-                here efficient too. Your brand isn&rsquo;t one of
-                thousands competing for the same moment. It&rsquo;s one
-                of a few, in front of members who are looking to discover
-                it.
+                Members come to Costco to discover: the treasure hunt,
+                the unexpected find. A curated assortment makes it
+                possible — and efficient. Every item earns its place and
+                sells in volume, so a placement here is one of a few, in
+                front of members who are looking to find it.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed max-w-2xl">
-                Costco Retail Media extends the hunt. We help members
-                discover your item before they ever step into the
-                warehouse — so the trip starts with your brand already
-                on their list, and the discovery continues in the aisle.
+              <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mt-6">
+                We start the hunt early — helping members discover your
+                item before they ever step into the warehouse.
               </p>
             </div>
             <div className="lg:col-span-5 bg-costco-darkBlue text-white p-8 lg:p-10">
               <div className="flex items-center gap-3 mb-6">
                 <Sparkles className="w-7 h-7" />
-                <p className="font-extrabold text-lg">Why discovery works here</p>
+                <p className="font-extrabold text-lg">Why it works</p>
               </div>
-              <ul className="space-y-5 text-blue-50 leading-relaxed">
+              <ul className="space-y-4 text-blue-50 leading-relaxed">
                 <li className="flex gap-3">
                   <Check className="w-5 h-5 text-white shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Curated assortment.</strong> Fewer than 4,000
-                    items, chosen by Costco merchants. Getting in is
-                    selective — and valuable.
-                  </span>
+                  <span><strong>Curated.</strong> Fewer than 4,000 items per warehouse.</span>
                 </li>
                 <li className="flex gap-3">
                   <Check className="w-5 h-5 text-white shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Efficient by design.</strong> High sales per
-                    item across the warehouse, and media that works the
-                    same way.
-                  </span>
+                  <span><strong>Efficient.</strong> High sales per item — and per placement.</span>
                 </li>
                 <li className="flex gap-3">
                   <Check className="w-5 h-5 text-white shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Growth in every trip.</strong> Members arrive
-                    ready to find something new — one purchase here
-                    covers months of usage.
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <Check className="w-5 h-5 text-white shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Discovery, extended.</strong> Reach members at
-                    home, on the go, and in the aisle — one connected
-                    treasure hunt.
-                  </span>
+                  <span><strong>Growing.</strong> One purchase here covers months of usage.</span>
                 </li>
               </ul>
             </div>
@@ -391,7 +449,7 @@ export default function ConceptHome() {
                 In the warehouse. In real life.
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                647 U.S. warehouses of discovery — screens, print
+                650+ U.S. warehouses of discovery — screens, print
                 members love to read, and the floor itself, where the
                 treasure hunt happens.
               </p>
@@ -462,43 +520,74 @@ export default function ConceptHome() {
         </div>
       </section>
 
-      {/* ---------- 06 PROOF ---------- */}
+      {/* ---------- 06 DIGITAL ---------- */}
       <section className="py-20 lg:py-28 w-full bg-white">
         <div className="container-custom">
-          <AisleSign number="06" label="Proof" />
+          <AisleSign number="06" label="Digital" />
           <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-14 max-w-3xl">
-            It works. Here&rsquo;s the evidence.
+            The warehouse is famous. Digital is the growth.
           </h2>
 
           <div className="border-2 border-gray-900 p-8 lg:p-12">
-            <p className="text-xs font-extrabold uppercase tracking-widest text-costco-red mb-3">
-              Kimberly-Clark
-            </p>
-            <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mb-10">
-              A campaign combining Costco&rsquo;s Multi-Vendor Mailer
-              with targeted digital media delivered:
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
-              <div>
-                <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight">
-                  14:1
-                </p>
-                <p className="font-bold text-gray-900 mt-1">Return on ad spend</p>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+              {/* Stats grid */}
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
+                <div>
+                  <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight">
+                    150M+
+                  </p>
+                  <p className="font-bold text-gray-900 mt-1">Active cardholders</p>
+                </div>
+                <div>
+                  <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight">
+                    $33B+
+                  </p>
+                  <p className="font-bold text-gray-900 mt-1">
+                    Digitally enabled sales in FY26
+                  </p>
+                </div>
+                <div>
+                  <p className="text-5xl lg:text-6xl font-extrabold text-costco-red tracking-tight">
+                    30%
+                  </p>
+                  <p className="font-bold text-gray-900 mt-1">
+                    Digital traffic increase in FY26
+                  </p>
+                </div>
+                <div>
+                  <p className="text-5xl lg:text-6xl font-extrabold text-costco-red tracking-tight">
+                    20.9%
+                  </p>
+                  <p className="font-bold text-gray-900 mt-1">
+                    Digital sales growth in FY26
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight">
-                  +45%
+
+              {/* Venn: how members shop */}
+              <div className="lg:col-span-5">
+                <p className="font-extrabold text-gray-900 text-lg mb-4 text-center lg:text-left">
+                  40% of members shop online
                 </p>
-                <p className="font-bold text-gray-900 mt-1">
-                  Digital sales of promoted items
-                </p>
-              </div>
-              <div>
-                <p className="text-5xl lg:text-6xl font-extrabold text-costco-darkBlue tracking-tight">
-                  +22%
-                </p>
-                <p className="font-bold text-gray-900 mt-1">
-                  Product-page traffic
+                <svg viewBox="0 0 400 240" className="w-full h-auto" role="img" aria-label="Diagram: 2% of members shop online only, 38% shop both online and in warehouse, 60% shop warehouse only">
+                  <circle cx="155" cy="120" r="95" fill="#0060A9" fillOpacity="0.9" />
+                  <circle cx="245" cy="120" r="95" fill="#E31837" fillOpacity="0.82" />
+                  <text x="105" y="105" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">eComm</text>
+                  <text x="105" y="123" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">Only</text>
+                  <text x="105" y="152" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="24" fill="#ffffff">2%</text>
+                  <text x="200" y="108" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">Both</text>
+                  <text x="200" y="140" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="26" fill="#ffffff">38%</text>
+                  <text x="295" y="105" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">Warehouse</text>
+                  <text x="295" y="123" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="13" fill="#ffffff">Only</text>
+                  <text x="295" y="152" textAnchor="middle" fontFamily="Arial, sans-serif" fontWeight="800" fontSize="24" fill="#ffffff">60%</text>
+                </svg>
+                <p className="text-sm text-gray-600 leading-relaxed mt-4">
+                  <strong className="text-gray-900">
+                    Many warehouse-only members are digitally engaged
+                  </strong>{' '}
+                  — they receive emails, visit Costco.com, and use a
+                  digital membership card. Digital reaches members
+                  wherever the trip begins.
                 </p>
               </div>
             </div>
@@ -603,15 +692,16 @@ export default function ConceptHome() {
       <section className="py-10 w-full bg-white">
         <div className="container-custom">
           <p className="text-[11px] leading-relaxed text-gray-400 max-w-5xl">
-            Sources &amp; notes: Warehouse count (647 in the United
-            States and Puerto Rico) and membership renewal rate (92.3%,
-            U.S. and Canada) — Costco Wholesale Corporation fiscal 2026
+            Sources &amp; notes: U.S. warehouse count (650+), U.S.
+            cardholders (90M+) and new member demographics — Costco
+            company reporting. Membership renewal rate (92.3%, U.S. and
+            Canada) — Costco Wholesale Corporation fiscal 2026
             operating results, year ended August 30, 2026. Assortment
             size (fewer than 4,000 active SKUs per warehouse) — Costco
-            Wholesale fiscal 2025 Form 10-K. New member demographics —
-            Costco company reporting. Kimberly-Clark campaign results —
-            as reported by Costco Wholesale Corporation, fiscal 2025.
-            This page is a design concept for discussion.
+            Wholesale fiscal 2025 Form 10-K. Digital figures (active
+            cardholders, digitally enabled sales, digital traffic and
+            sales growth, member shopping behaviour) — Costco internal,
+            fiscal 2026. This page is a design concept for discussion.
           </p>
         </div>
       </section>
