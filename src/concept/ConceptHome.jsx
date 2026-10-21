@@ -506,7 +506,7 @@ export default function ConceptHome() {
           </div>
 
           <Link
-            to="/velocity"
+            to="/concept/velocity"
             className="bg-costco-blue hover:bg-blue-600 text-white font-bold px-8 py-4 rounded-full shadow-lg transition-all inline-flex items-center gap-2 text-sm uppercase tracking-wider"
           >
             Explore Costco Velocity <ArrowRight className="w-4 h-4" />
