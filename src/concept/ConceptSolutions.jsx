@@ -26,6 +26,8 @@ import {
   BookOpen,
   Send,
   Plug,
+  Gauge,
+  ShieldCheck,
   ChevronDown,
   UtensilsCrossed,
   Play,
@@ -72,6 +74,22 @@ const GROUPS = [
     icon: Store,
     intro:
       'The floor itself: screens, fuel, print, mail — and sampling, the original Costco medium. Nothing reaches a member like the warehouse does.',
+  },
+  {
+    id: 'audience',
+    label: 'Audience',
+    title: 'Audiences built on what members actually buy.',
+    icon: Users,
+    intro:
+      'Every format on this page can be aimed with Costco audiences — built from real purchases, because every transaction is membership-linked.',
+  },
+  {
+    id: 'measurement',
+    label: 'Measurement',
+    title: 'Measured in sales. All of them.',
+    icon: BarChart3,
+    intro:
+      'The membership card is scanned on every transaction, so exposure can be tied to what actually sold — online and in the warehouse, down to the SKU where it applies.',
   },
 ];
 
@@ -237,30 +255,47 @@ const PLACEMENTS = [
   // --- Measurement ---
   {
     id: 'conversion-api', group: 'measurement', icon: Plug, mock: 'api',
-    title: 'Conversion API',
+    title: 'Conversion API (CAPI)',
     short: 'Costco conversion data, sent back to your platforms — so optimisation works on real sales.',
     about: 'A secure, server-to-server connection that transmits Costco sales conversions — online and offline — back to your measurement and buying platforms, so your own optimisation works on real outcomes, not proxies.',
     points: ['Server-to-server transmission of conversion data', 'Online and in-warehouse sales included', 'Powers optimisation inside your own platforms'],
     buy: 'Managed setup', measured: 'Warehouse and online sales', reporting: 'Dashboard',
   },
-];
 
-const AUDIENCE_TILES = [
+  // --- Audience ---
   {
-    title: 'Built on purchases, not profiles',
-    body: 'Segments come from what members actually buy at Costco — categories, brands, frequency, and how their baskets change over time. Not inferred interests. Receipts.',
+    id: 'templated-audiences', group: 'audience', icon: Users, mock: 'segments',
+    title: 'Templated Audiences',
+    short: 'Pre-built member audiences across the categories Costco sells — ready to activate on any plan.',
+    about: 'A ready library of audiences built from actual Costco purchase history: category buyers, brand buyers, seasonal buyers, membership tiers and more. Pick the segments that match your goal and they can be applied to any format on this page — onsite, offsite, or in the warehouse.',
+    points: ['Built from real purchases, not inferred interests', 'Category, brand, seasonal and membership-tier segments', 'Ready to activate — no build time'],
+    buy: 'Added to any campaign', measured: 'Warehouse and online sales', reporting: 'Dashboard',
   },
   {
-    title: 'Ready when you are',
-    body: 'A library of pre-built audiences across the categories Costco sells — category buyers, brand buyers, seasonal buyers and more — ready to activate on any plan.',
+    id: 'custom-audiences', group: 'audience', icon: LayoutDashboard, mock: 'builder',
+    title: 'Custom Audiences',
+    short: 'A specific member in mind? We build the audience to your brief — including with your own data.',
+    about: 'When the templated library doesn’t fit, we build: custom combinations of purchase behaviour, category and geography, defined with your team. Brands can also bring their own first-party data and collaborate with Costco data in a clean-room environment — matched and measured without either side handing over raw data.',
+    points: ['Built to your brief, with our team', 'Combine purchase behaviour, category and geography', 'Clean-room collaboration with your first-party data'],
+    buy: 'Managed', measured: 'Warehouse and online sales', reporting: 'Dashboard',
+  },
+
+  // --- Measurement (continued) ---
+  {
+    id: 'velocity-platform', group: 'measurement', icon: Gauge, mock: 'dashboard',
+    title: 'Costco Velocity',
+    short: 'The platform behind every campaign: activation, reporting and sales measurement in one place.',
+    about: 'Costco Velocity is the system every campaign on this page runs on. It connects the audiences, the media and the register — so planning, activation and closed-loop sales reporting happen in one place, on one version of the truth.',
+    points: ['One platform across onsite, offsite and warehouse media', 'Campaign reporting built on actual sales', 'The same membership-linked data from targeting to measurement'],
+    buy: 'Included with campaigns', measured: 'Warehouse and online sales', reporting: 'Dashboard',
   },
   {
-    title: 'Custom, with you',
-    body: 'A specific member in mind? We build custom audiences to your brief — and brands can collaborate with their own first-party data in a clean-room environment.',
-  },
-  {
-    title: 'Membership & place',
-    body: 'Reach members by membership tier, by region, or by warehouse — down to the members who shop the locations where your item is stocked.',
+    id: 'clean-room', group: 'measurement', icon: ShieldCheck, mock: 'cleanroom',
+    title: 'Clean Room',
+    short: 'Collaborate with your own data — matched and measured, without raw data changing hands.',
+    about: 'Costco’s clean room is a secure environment where your first-party data and Costco’s membership data can be matched and analysed under strict controls. Overlap analysis, audience building and incrementality measurement — with member privacy protected throughout.',
+    points: ['Secure matching of your data with Costco membership data', 'Overlap and audience analysis before you spend', 'Incrementality measurement on real sales'],
+    buy: 'Managed', measured: 'Warehouse and online sales', reporting: 'Clean-room outputs & dashboard',
   },
 ];
 
@@ -566,6 +601,74 @@ function Mockup({ type }) {
           </div>
         </div>
       );
+    case 'segments':
+      return (
+        <BrowserFrame url="costco velocity — audiences">
+          <p className="text-[10px] font-extrabold text-gray-900 mb-2">Templated audiences</p>
+          <div className="flex flex-wrap gap-1.5">
+            {['Category buyers', 'Brand buyers', 'New-item triers', 'Seasonal buyers', 'Executive members', 'Lapsed buyers', 'Bulk buyers', 'Regional'].map((t, i) => (
+              <span key={t} className={`text-[9px] font-bold px-2 py-1 rounded-full border ${i < 3 ? 'bg-costco-blue text-white border-costco-blue' : 'bg-white text-gray-600 border-gray-300'}`}>{t}</span>
+            ))}
+          </div>
+          <p className="text-[9px] text-gray-400 mt-2.5">Pick segments — activate on any format</p>
+        </BrowserFrame>
+      );
+    case 'builder':
+      return (
+        <BrowserFrame url="costco velocity — custom audience">
+          {[
+            ['Buys in category', 80],
+            ['Shops these warehouses', 55],
+            ['Purchase frequency', 65],
+          ].map(([t, w]) => (
+            <div key={t} className="mb-2.5">
+              <div className="flex justify-between text-[9px] font-bold text-gray-700 mb-1"><span>{t}</span><span className="text-costco-blue">On</span></div>
+              <div className="h-2 bg-gray-200 rounded-full"><div className="h-2 bg-costco-blue rounded-full" style={{ width: `${w}%` }} /></div>
+            </div>
+          ))}
+          <p className="text-[9px] text-gray-400">Built to your brief — sized before you spend</p>
+        </BrowserFrame>
+      );
+    case 'dashboard':
+      return (
+        <BrowserFrame url="costco velocity — reporting">
+          <div className="grid grid-cols-3 gap-2 mb-2">
+            {[['Sales', '$—'], ['New to brand', '—%'], ['ROAS', '—x']].map(([k, v]) => (
+              <div key={k} className="border border-gray-200 p-2 text-center">
+                <p className="text-[13px] font-extrabold text-costco-darkBlue">{v}</p>
+                <p className="text-[8px] font-bold text-gray-500 uppercase">{k}</p>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-end gap-1.5 h-12 px-1">
+            {[35, 50, 44, 66, 82, 97].map((h, i) => (
+              <div key={i} className="flex-1 bg-costco-blue/80" style={{ height: `${h}%` }} />
+            ))}
+          </div>
+          <p className="text-[9px] text-gray-400 mt-1.5 text-center">Closed-loop sales, online + warehouse</p>
+        </BrowserFrame>
+      );
+    case 'cleanroom':
+      return (
+        <div className="w-full bg-gray-50 border border-gray-200 p-4">
+          <div className="flex items-center justify-between max-w-[340px] mx-auto">
+            <div className="bg-white border border-gray-300 text-center px-2 py-2.5 w-[104px]">
+              <p className="text-[9px] font-extrabold text-gray-900">YOUR DATA</p>
+              <p className="text-[8px] text-gray-500">First-party</p>
+            </div>
+            <div className="bg-gray-900 text-white text-center px-2 py-2.5 w-[118px]">
+              <ShieldCheck className="w-4 h-4 mx-auto mb-0.5 text-blue-300" />
+              <p className="text-[9px] font-extrabold">CLEAN ROOM</p>
+              <p className="text-[8px] text-gray-400">Matched securely</p>
+            </div>
+            <div className="bg-costco-darkBlue text-white text-center px-2 py-2.5 w-[104px]">
+              <p className="text-[9px] font-extrabold">COSTCO DATA</p>
+              <p className="text-[8px] text-blue-200">Membership</p>
+            </div>
+          </div>
+          <p className="text-[9px] text-gray-400 text-center mt-2.5">Raw data never changes hands</p>
+        </div>
+      );
     default:
       return (
         <BrowserFrame>
@@ -610,8 +713,6 @@ export default function ConceptSolutions() {
 
   const navItems = [
     ...GROUPS.map((g) => ({ id: `sol-${g.id}`, label: g.label })),
-    { id: 'sol-audience', label: 'Audience' },
-    { id: 'sol-measurement', label: 'Measurement' },
     { id: 'sol-faqs', label: 'Advertiser FAQs' },
   ];
 
@@ -691,96 +792,19 @@ export default function ConceptSolutions() {
                 );
               })}
             </div>
+            {group.id === 'audience' && (
+              <div className="flex items-start gap-3 bg-gray-50 border border-gray-200 p-5 max-w-5xl mt-10">
+                <Users className="w-5 h-5 text-costco-blue shrink-0 mt-0.5" />
+                <p className="text-gray-700 leading-relaxed">
+                  <strong>Member data stays at Costco.</strong> Audiences are
+                  activated for your campaign inside Costco&rsquo;s systems —
+                  never sold, never handed over as lists.
+                </p>
+              </div>
+            )}
           </div>
         </section>
       ))}
-
-      {/* ---------- AUDIENCE ---------- */}
-      <section id="sol-audience" className="py-16 lg:py-24 w-full bg-white scroll-mt-44">
-        <div className="container-custom">
-          <SectionHeader
-            label="Audience"
-            title="Audiences built on what members actually buy."
-            intro="Every format on this page can be aimed with Costco audiences — and because every transaction is membership-linked, the targeting and the measurement come from the same place: real purchases."
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
-            {AUDIENCE_TILES.map((t) => (
-              <div key={t.title} className="border-t-4 border-costco-darkBlue pt-5">
-                <h3 className="text-xl font-extrabold text-gray-900 mb-2">{t.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{t.body}</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex items-start gap-3 bg-gray-50 border border-gray-200 p-5 max-w-5xl mt-10">
-            <Users className="w-5 h-5 text-costco-blue shrink-0 mt-0.5" />
-            <p className="text-gray-700 leading-relaxed">
-              <strong>Member data stays at Costco.</strong> Audiences are
-              activated for your campaign inside Costco&rsquo;s systems —
-              never sold, never handed over as lists.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- MEASUREMENT ---------- */}
-      <section id="sol-measurement" className="py-16 lg:py-24 w-full bg-gray-950 text-white scroll-mt-44">
-        <div className="container-custom">
-          <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-blue-300 mb-3">
-            Measurement
-          </p>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-4">
-            Measured in sales. All of them.
-          </h2>
-          <p className="text-lg text-gray-300 leading-relaxed max-w-3xl mb-12">
-            The membership card is scanned on every transaction, so
-            exposure can be tied to what actually sold — online and in
-            the warehouse, down to the SKU where it applies. That is the
-            standard every format above is reported against.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl">
-            {PLACEMENTS.filter((p) => p.group === 'measurement').map((p) => {
-              const Icon = p.icon;
-              return (
-                <div key={p.id} className="bg-gray-900 border border-gray-800 p-7 flex flex-col">
-                  <div className="bg-gray-800 text-blue-300 p-3 w-max mb-5">
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-xl font-extrabold leading-tight mb-2">{p.title}</h3>
-                  <p className="text-gray-400 leading-relaxed mb-6">{p.short}</p>
-                  <button
-                    onClick={() => setSelected(p)}
-                    className="mt-auto text-blue-300 font-bold text-sm text-left hover:underline"
-                  >
-                    See it &amp; details
-                  </button>
-                </div>
-              );
-            })}
-            <div className="bg-gray-900 border border-gray-800 p-7">
-              <div className="bg-gray-800 text-blue-300 p-3 w-max mb-5">
-                <BarChart3 className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-extrabold leading-tight mb-2">Closed-loop reporting</h3>
-              <p className="text-gray-400 leading-relaxed">
-                Dashboards and campaign reports built on sales — with
-                incrementality in view, so you can see the growth your
-                media created, not just the sales it touched.
-              </p>
-            </div>
-            <div className="bg-gray-900 border border-gray-800 p-7">
-              <div className="bg-gray-800 text-blue-300 p-3 w-max mb-5">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-extrabold leading-tight mb-2">New-to-brand insight</h3>
-              <p className="text-gray-400 leading-relaxed">
-                See how much of your result came from members who were
-                new to your brand or category — the growth story, not
-                just the total.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ---------- ADVERTISER FAQs ---------- */}
       <section id="sol-faqs" className="py-16 lg:py-24 w-full bg-white scroll-mt-44">
@@ -852,9 +876,7 @@ export default function ConceptSolutions() {
           <div className="relative bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 sm:px-8 py-4 flex items-center justify-between z-10">
               <span className="text-xs font-extrabold uppercase tracking-widest text-costco-red">
-                {selected.group === 'measurement'
-                  ? 'Measurement'
-                  : GROUPS.find((g) => g.id === selected.group)?.label}
+                {GROUPS.find((g) => g.id === selected.group)?.label}
               </span>
               <button
                 onClick={() => setSelected(null)}
