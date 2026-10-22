@@ -13,21 +13,26 @@ import {
   CheckCircle2,
   MonitorSmartphone,
   Globe2,
+  Search,
   Store,
 } from 'lucide-react';
 
 /*
-  CONCEPT — Costco Velocity page, v2.
-  Framing (per Mark):
-  - Costco Velocity is NOT the retail media program. It is the
-    technology platform and engine that powers it — and the page
-    must dimensionalise what that platform is.
-  - No references to other retailers or vendors-as-comparisons.
-  - The narrative wrapper is member benefit: more relevant Costco
-    communication, and discovery brought upstream — predicting which
-    of Costco's great items a member would most love to find.
-  - Language about Costco's knowledge is deliberately delicate:
-    signals, purchases, understanding — never members-as-product.
+  CONCEPT — Costco Velocity page, v3.
+  Built on Mark's Buck Fifty LinkedIn articles (the announcement
+  series) and his structural definition:
+  - Velocity is NOT the retail media program. It is the platform
+    and engine that powers it: core data, consent & preferences,
+    identity resolution, signal capture, audience & prediction,
+    activation, closed-loop measurement.
+  - Pillars: Convert (onsite) and Reach (offsite).
+  - Purpose: amplify item discovery to drive sales — bring the
+    Treasure Hunt upstream. An engine to move merchandise.
+  - Principles: transparent foundation, member-first architecture
+    (member data curates experiences; it is not rented out),
+    incrementality over attribution, open/modular architecture.
+  - No references to other retailers. Data language stays delicate:
+    signals, purchases, understanding — never members as product.
 */
 
 const LAYERS = [
@@ -44,7 +49,7 @@ const LAYERS = [
     icon: SlidersHorizontal,
     label: 'Consent & Preferences',
     title: 'Member choices, honoured everywhere',
-    body: 'Members tell Costco how they want to be communicated with, and what they\u2019re comfortable with. That layer records those choices once and applies them across everything the platform does — onsite, offsite and in the warehouse — so a member\u2019s preferences are never a setting in one system and a surprise in another.',
+    body: 'Members tell Costco how they want to be communicated with, and what they\u2019re comfortable with. This layer records those choices once and applies them across everything the platform does — onsite, offsite and in the warehouse — so a member\u2019s preferences are never a setting in one system and a surprise in another.',
     enables: 'Makes possible: relevance with permission — the member\u2019s choices, enforced by design.',
   },
   {
@@ -61,14 +66,14 @@ const LAYERS = [
     label: 'Signal Capture',
     title: 'Always current',
     body: 'As members shop and respond, those signals flow back into the platform: what was seen, what was saved, what was bought, and where. The picture stays current — which is what allows the platform to respond in the moment instead of working from last month\u2019s snapshot.',
-    enables: 'Makes possible: decisions made on what is happening now, not what used to be true.',
+    enables: 'Makes possible: decisions made on what is relevant right now, in real time.',
   },
   {
     id: 'prediction',
     icon: Sparkles,
     label: 'Audience & Prediction',
     title: 'Where understanding becomes discovery',
-    body: 'This is the layer that turns what Costco knows into what a member sees next: audiences of members with shared tastes, and predictions of which items — out of everything great on Costco\u2019s shelves — a member would be most interested in. It is the engine of bringing discovery upstream.',
+    body: 'This layer turns what Costco knows into what a member sees next: audiences of members with shared tastes, and predictions of which items — out of everything great on Costco\u2019s shelves — a member would be most interested in, right now. It is the engine of bringing the Treasure Hunt upstream.',
     enables: 'Makes possible: the right item in front of the right member, before the trip even starts.',
   },
   {
@@ -76,7 +81,7 @@ const LAYERS = [
     icon: Send,
     label: 'Activation',
     title: 'Modular, at every point of contact',
-    body: 'Activation is where the platform goes to work — and it is deliberately modular. The same foundation powers placements on Costco.com and the app, media beyond Costco through partner platforms, and screens and experiences in the warehouse. New channels plug into the foundation as members discover items in new places.',
+    body: 'Activation is where the platform goes to work, in two suites. Convert powers onsite media — Costco.com and the app. Reach powers offsite media — the open web, search, social and streaming, delivered directly and through partner platforms. The same foundation also reaches physical spaces, and new channels plug in as members discover items in new places.',
     enables: 'Makes possible: members reached wherever they are consuming content, from one foundation.',
   },
   {
@@ -84,51 +89,61 @@ const LAYERS = [
     icon: LineChart,
     label: 'Closed-Loop Measurement',
     title: 'The engine that proves it',
-    body: 'Because purchases are membership-linked, the platform measures results in actual sales — online and at the warehouse register — and feeds what it learns back into the next decision. Measurement is not a report bolted on at the end; it is the part of the machine that makes every cycle smarter than the last.',
-    enables: 'Makes possible: honest results in sales, and a platform that learns.',
+    body: 'Because purchases are membership-linked, the platform measures results in actual sales — online and at the warehouse register — with incrementality in view: did this drive a new sale, or claim credit for an existing one? And increasingly, it measures in flight, while a campaign can still be improved — not in a post-mortem after it ends.',
+    enables: 'Makes possible: honest results in sales, delivered while they can still change the outcome.',
   },
 ];
 
 const PRINCIPLES = [
   {
-    title: 'Modular and flexible, on purpose',
-    body: 'Velocity is built in connected pieces, not one rigid system. A new format, a new channel, a new partner — each plugs into the same foundation of data, identity and measurement. As the ways members discover items keep changing, the platform is designed to change with them.',
+    title: 'Open and modular, by design',
+    body: 'Velocity is built in connected pieces, with thoughtful integrations upstream and downstream, to remove friction from activation. Brands can work managed or self-serve, and through the platforms they already use. No mandated way of buying, no single rigid system — the foundation stays the same while the pieces evolve.',
   },
   {
-    title: 'Costco\u2019s knowledge stays at Costco',
-    body: 'The platform was designed under a simple discipline: Costco owns its information, and movement and copying of it are kept to a minimum. Partners and tools connect into Costco\u2019s environment and work there — the understanding Costco has built with its members does not ship out the door.',
+    title: 'A member-first foundation',
+    body: 'The architecture starts with the member. Costco\u2019s understanding of its members is used to curate better experiences — it is not rented out. And it stays at Costco: the discipline behind the platform is to own that information and keep its movement and copying to a minimum, with members\u2019 choices honoured at every layer.',
   },
   {
-    title: 'The member test comes first',
-    body: 'Every part of the platform has to pass one test: does this make a member\u2019s experience with Costco better — more relevant, more useful, more worth renewing? Technology that can\u2019t answer that question doesn\u2019t ship, however clever it is.',
+    title: 'Built to move merchandise',
+    body: 'In the warehouse, velocity is the metric that matters: how fast great merchandise moves. The platform carries the same discipline into media. Its success is counted in sales and in trust — suppliers, brands and agencies working from the same tools and the same truth Costco uses itself: learn, plan, activate, analyze.',
   },
 ];
 
 const EXAMPLES = [
   {
     icon: MonitorSmartphone,
-    tag: 'Onsite — in real time',
+    tag: 'Convert — onsite, in real time',
     title: 'The digital endcap that knows its member',
-    body: 'A member opens Costco.com. Everything the platform needs is already inside Costco\u2019s private cloud — so in the moment the page loads, verified purchase signals and the member\u2019s segment shape what they see. The homepage endcap carries the item they are most likely to love: a discovery they might not have made until the warehouse, made before the trip. For the brand, that is being discovered by exactly the member most likely to buy — and the result is measured in actual sales.',
+    body: 'A member opens Costco.com. Everything the platform needs sits inside Costco\u2019s private cloud, so in the moment the page loads, verified purchase signals and member segmentation shape what they see. The endcap carries the item they are most likely to love — a discovery they might not have made until the warehouse, made before the trip. Convert\u2019s Performance Display works this way: personalised placements, optimised toward sales, visible in flight.',
   },
   {
     icon: Globe2,
-    tag: 'Offsite — through partners',
-    title: 'Plugged into the platforms brands already use',
-    body: 'A brand\u2019s team plans its media in The Trade Desk. Velocity plugs into that activation layer: Costco audiences — built and governed inside Costco\u2019s own environment — are made available there, so the campaign reaches Costco members wherever they are consuming content. Costco\u2019s information never ships out; the audiences go to work, and when members buy, the outcome is measured closed-loop at Costco.',
+    tag: 'Reach — offsite, through partners',
+    title: 'Plugged into The Trade Desk',
+    body: 'A brand\u2019s team plans its media in The Trade Desk, a platform it already uses. Velocity plugs into that activation layer: Costco audiences — more than 1,300 custom segments, built and governed inside Costco\u2019s own environment — become available there, and reach members across the open web. Costco\u2019s information never ships out. When members buy, Reach\u2019s in-flight dashboard shows the verified sales while the campaign is still live — so teams optimise, not just attribute.',
+  },
+  {
+    icon: Search,
+    tag: 'Reach — discovery starts with search',
+    title: 'The Treasure Hunt, at the search bar',
+    body: 'For millions of members, the journey doesn\u2019t start at Costco\u2019s front door — it starts in a search bar, researching and comparing long before a trip. Reach\u2019s Performance Ads extend the Costco shelf into that moment, placing the items members are hunting for directly in product search results and routing them to Costco — discovery captured at the point of intent, measured closed-loop like everything else on the platform.',
   },
   {
     icon: Store,
     tag: 'In real life — the warehouse',
     title: 'Discovery continues down the aisle',
-    body: 'The same foundation reaches the floor: warehouse and fuel-station screens carry messaging aligned to the members who shop that location and what is stocked there. The item a member discovered online shows up supported in the aisle — one connected experience, from the couch to the checkout.',
+    body: 'The same foundation reaches the floor: warehouse and fuel-station screens carry messaging aligned to the members who shop that location and what is stocked there. The item a member discovered on the couch shows up supported in the aisle — one connected experience, from first search to checkout.',
   },
 ];
 
 const FAQS = [
   {
     q: 'Is Costco Velocity the same thing as Costco Retail Media?',
-    a: 'No — and the distinction matters. Costco Retail Media is the program: the team, the partnerships, the media brands buy. Costco Velocity is the technology platform underneath it: the data, identity, activation and measurement engine that makes the program work. When we say a campaign is \u201cpowered by Costco Velocity,\u201d this page is what we mean.',
+    a: 'No — and the distinction matters. Costco Retail Media is the program: the team, the partnerships, the media brands buy. Costco Velocity is the technology platform underneath it — data, consent, identity, signals, audiences and prediction, activation, and the measurement engine. When we say a campaign is \u201cpowered by Costco Velocity,\u201d this page is what we mean.',
+  },
+  {
+    q: 'What are Convert and Reach?',
+    a: 'They are the two media suites the platform powers. Convert is onsite: media on Costco.com and in the app, including Performance Display — personalised digital endcaps decided in real time. Reach is offsite: programmatic, search, social and streaming that meet members wherever they are consuming content, activated directly or through partner platforms like The Trade Desk.',
   },
   {
     q: 'Where does the information live?',
@@ -136,19 +151,15 @@ const FAQS = [
   },
   {
     q: 'How does the relevance actually work?',
-    a: 'In plain terms: what a member buys, saves and browses — resolved to their membership, with their preferences applied — forms signals. The audience and prediction layer reads those signals to decide which items that member would most likely want to discover next. No member information is handed to advertisers in the process; they receive the benefit of the relevance, not the information behind it.',
+    a: 'In plain terms: what a member buys, saves and browses — resolved to their membership, with their preferences applied — forms signals. The audience and prediction layer reads those signals in real time to decide which items that member would most likely want to discover next. Advertisers receive the benefit of that relevance; member information itself is never handed over.',
   },
   {
     q: 'Does it depend on third-party cookies?',
     a: 'No. Identity in Velocity comes from the membership itself — the card, the login, the transaction record. The platform was built on that foundation from the start.',
   },
   {
-    q: 'Can we activate through our own platforms?',
-    a: 'Yes — modularity is the design. Velocity connects into partner activation platforms (The Trade Desk is one example), clean-room environments for collaboration, and measurement flows back into your own tools, including through the Conversion API. Your team keeps working the way it works; Velocity supplies the Costco understanding.',
-  },
-  {
-    q: 'How are warehouse sales connected to all this?',
-    a: 'The membership card is presented on every warehouse transaction. That link is what lets the platform\u2019s measurement layer close the loop: a member sees something relevant, discovers an item, buys it in the warehouse — and the result is recorded as a sale, at SKU level where applicable.',
+    q: 'What measurement will we actually receive?',
+    a: 'Closed-loop sales reporting — online and warehouse, incrementality in view — and, for offsite programmatic, in-flight: a self-serve dashboard (delivered through a secure clean-room environment) that matches impressions to verified sales while the campaign is live, so you can optimise during the flight instead of reading about it afterward. Reach measurement rolled out first for campaigns run through The Trade Desk.',
   },
 ];
 
@@ -170,10 +181,11 @@ export default function ConceptVelocity() {
             </p>
             <p className="text-lg text-blue-100 max-w-2xl leading-relaxed">
               Costco Retail Media is the program. Velocity is the
-              technology and the engine underneath it — built for a
-              member reason first: so that what Costco shows a member
-              is worth their attention, and the next great item finds
-              them sooner.
+              technology and the engine underneath it — a closed-loop
+              platform built to amplify item discovery and drive sales,
+              and to do it in a way that makes membership more valuable.
+              In the warehouse, velocity means merchandise that moves.
+              This platform brings the same discipline to media.
             </p>
           </div>
 
@@ -213,26 +225,26 @@ export default function ConceptVelocity() {
             Why it exists
           </p>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-8">
-            Discovery, brought upstream.
+            Bringing the Treasure Hunt upstream.
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl">
             <p className="text-lg text-gray-700 leading-relaxed">
               The warehouse treasure hunt is famous for a reason:
-              members wander, and great items find them. But Costco
-              carries a deliberately small assortment, and the next
-              item a member would love is already sitting on a shelf
-              somewhere — or on Costco.com — whether or not they happen
-              to walk past it this trip.
+              members wander, and great items find them. That
+              serendipity isn&rsquo;t an accident — it&rsquo;s the
+              result of rigorous merchandising. But the hunt
+              doesn&rsquo;t have to wait for the trip. Members research,
+              compare and discover long before they reach a warehouse —
+              starting, very often, in a search bar.
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Velocity exists to start that discovery earlier. By
-              understanding what members actually buy, Costco&rsquo;s
-              communication — on the site, in the app, in email, across
-              the web, in the warehouse — can carry the items most
-              likely to be right for each member, wherever they are
-              consuming content. Members find more of what they love.
-              Brands are discovered by the members most likely to buy.
-              And the membership becomes more valuable because of it.
+              Velocity exists to meet them there. By understanding what
+              members actually buy, Costco&rsquo;s communication — on
+              the site, in the app, across the web, in the warehouse —
+              can carry the items most likely to be right for each
+              member, wherever they are consuming content. Discovery
+              starts earlier, communication earns its attention, and
+              brands are found by the members most likely to buy.
               That is the work the platform does.
             </p>
           </div>
@@ -321,7 +333,7 @@ export default function ConceptVelocity() {
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-14">
             What it looks like in practice.
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {EXAMPLES.map((e) => {
               const Icon = e.icon;
               return (
@@ -342,10 +354,10 @@ export default function ConceptVelocity() {
           </div>
           <div className="flex flex-wrap gap-x-10 gap-y-3 mt-12">
             {[
-              'Get discovered upstream, by the members most likely to buy',
-              'Activate anywhere from one foundation',
-              'Work through the platforms your team already uses',
-              'Count results in sales, not proxies',
+              'Amplify discovery, drive sales',
+              'Learn, plan, activate, analyze — one platform',
+              'Managed or self-serve, through your own tools',
+              'Counted in incremental sales, in flight',
             ].map((t) => (
               <p key={t} className="flex items-center gap-2 font-semibold text-blue-100">
                 <CheckCircle2 className="w-5 h-5 text-blue-300 shrink-0" /> {t}
@@ -418,10 +430,10 @@ export default function ConceptVelocity() {
         <div className="container-custom">
           <p className="text-[11px] leading-relaxed text-gray-400 max-w-5xl">
             Notes: Costco Velocity is the technology platform powering
-            Costco Retail Media. Integration availability varies by
-            partner and format and is confirmed by the Costco Retail
-            Media team. Measurement descriptions reflect standard
-            reporting capabilities.
+            Costco Retail Media, organised in two media suites —
+            Convert (onsite) and Reach (offsite). Integration and
+            dashboard availability vary by partner and format and are
+            confirmed by the Costco Retail Media team.
           </p>
         </div>
       </section>
