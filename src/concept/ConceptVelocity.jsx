@@ -10,10 +10,8 @@ import {
   Sparkles,
   Send,
   LineChart,
-  MonitorSmartphone,
-  Globe2,
   Search,
-  Store,
+  Play,
 } from 'lucide-react';
 
 /*
@@ -29,30 +27,44 @@ const LAYERS = [
   {
     id: 'core-data', icon: Database, label: 'Core Data',
     line: 'Costco\u2019s businesses — warehouse, online, travel, fuel — connected in Costco\u2019s private cloud, organised around the member.',
+    detail: 'Warehouse transactions, Costco.com, the app, same-day delivery, travel, fuel — information that once lived in separate systems, now structured the same way in one environment.',
+    example: 'A member who buys coffee in the warehouse and browses grinders online is one member, with one history.',
   },
   {
     id: 'consent', icon: SlidersHorizontal, label: 'Consent & Preferences',
     line: 'Each member\u2019s choices, recorded once and honoured across every experience.',
+    detail: 'Preferences captured at any touchpoint — communication choices, app settings, opt-outs — propagate across the platform, so every activation respects them automatically.',
+    example: 'A member who turns down promotional email is not chased with the same campaign somewhere else.',
   },
   {
     id: 'identity', icon: Fingerprint, label: 'Identity Resolution',
     line: 'Activity across Costco, resolved to the membership behind it — a household Costco knows.',
+    detail: 'Membership records, verified logins, and transaction history resolve to a single household view — deterministic identity, maintained by Costco, with no third-party cookies involved.',
+    example: 'The member researching TVs on a phone is recognised as the household that buys its paper goods in the warehouse.',
   },
   {
     id: 'signals', icon: Activity, label: 'Signal Capture',
     line: 'Purchases, browsing and responses flow back continuously. The picture is always current.',
+    detail: 'Impressions, streams, clicks, list adds, and register transactions stream back continuously — including the warehouse, where the great majority of Costco sales happen.',
+    example: 'A live campaign can respond to this morning’s warehouse sales — not last quarter’s report.',
   },
   {
     id: 'prediction', icon: Sparkles, label: 'Audience & Prediction',
     line: 'Audiences of shared taste — and a prediction of the item each member would most want to find next.',
+    detail: 'More than 1,300 pre-built and custom audiences, plus machine-learned relevance for each member — refreshed from live signals rather than fixed segments built on who a member was last month.',
+    example: 'The member most likely to love the new trail mix is identified before it ever reaches an endcap.',
   },
   {
     id: 'activation', icon: Send, label: 'Activation',
     line: 'Media delivered from one foundation: onsite, offsite, and in real life.',
+    detail: 'The same audiences and predictions activate everywhere: Costco.com and the app, partner platforms such as The Trade Desk, product search, streaming and social, and warehouse media — one definition, every destination.',
+    example: 'One audience, planned once, follows the member’s whole journey — and is measured the same way at every step.',
   },
   {
     id: 'measurement', icon: LineChart, label: 'Closed-Loop Measurement',
     line: 'Results in actual, incremental sales — increasingly in flight, while campaigns can still improve.',
+    detail: 'Exposure is matched to membership-linked transactions to report sales, new-to-brand buyers, and incrementality — delivered as dashboards, clean-room outputs, in-flight views, or back into your platforms through the Conversion API.',
+    example: 'A streaming campaign can be credited with the warehouse sales it actually created — while it is still running.',
   },
 ];
 
@@ -73,26 +85,119 @@ const PRINCIPLES = [
 
 const EXAMPLES = [
   {
-    icon: MonitorSmartphone, tag: 'Onsite — in real time',
-    title: 'The endcap, decided in the moment',
-    body: 'A member lands on Costco.com. Inside the private cloud, verified purchase signals and member segments shape the endcap as the page loads — the item they\u2019re most likely to love, discovered before the trip.',
+    format: 'Onsite banner — Reserved Display',
+    mock: 'banner',
+    title: 'The homepage banner that behaves like an endcap',
+    story: 'A member arrives on the Costco.com homepage. In the time the page takes to load, Velocity weighs what that member actually buys, what they have been browsing, and what their household is likely to want next — and the banner becomes the endcap for the item that fits. It is a familiar format, a homepage banner. What is different is everything behind it: the decision happens inside Costco’s private cloud, on verified purchase signals — and when the member later buys that item in the warehouse, the sale is credited back to this placement.',
+    layers: ['Core data', 'Identity', 'Prediction', 'Measurement'],
   },
   {
-    icon: Globe2, tag: 'Offsite — through partners',
-    title: 'Activated in The Trade Desk',
-    body: 'Brands activate Costco audiences — 1,300+ custom segments — within The Trade Desk. Costco\u2019s information stays home; verified sales stream back in flight.',
+    format: 'Onsite sponsored product ad',
+    mock: 'spa',
+    title: 'Search results that know the warehouse',
+    story: 'A member searches Costco.com for coffee. Sponsored product ads compete for the top of the results — but Velocity shapes the auction with knowledge a search ad doesn’t usually have: the member’s purchase history, their category patterns, and live inventory, so a member is not shown an item their warehouse doesn’t stock. The click, the cart, and the eventual register ring — online or in the warehouse — all resolve to the same membership, so the brand sees the full result of winning that search.',
+    layers: ['Signal capture', 'Prediction', 'Activation', 'Measurement'],
   },
   {
-    icon: Search, tag: 'Offsite — at the search bar',
-    title: 'Discovery starts with search',
-    body: 'The journey often starts in a search bar. Performance Ads place Costco items in product search results at the moment of intent — the shelf, extended.',
+    format: 'Offsite — Performance Shopping Ads on Google',
+    mock: 'shopping',
+    title: 'The shelf, extended to the search bar',
+    story: 'This member never starts at Costco. They start on Google, comparing coffee makers. A shopping ad for a model stocked at Costco appears — placed there because Performance Ads, running on Velocity, recognised the intent and matched it to a Costco item. The click lands on Costco.com, and the purchase joins the member’s history like any other. Discovery that once happened only in the aisle now happens at the first moment of intent — measured closed-loop, back to the sale.',
+    layers: ['Prediction', 'Activation', 'Signal capture', 'Measurement'],
   },
   {
-    icon: Store, tag: 'In real life',
-    title: 'Continued in the warehouse',
-    body: 'Warehouse and fuel screens carry the same understanding to the floor — aligned to the members who shop there, and the stock they\u2019ll find.',
+    format: 'Offsite — Connected TV',
+    mock: 'ctv',
+    title: 'Streaming TV, aimed like a membership',
+    story: 'A household settles in to stream a show. The ad they see was chosen because Velocity knows this membership buys in the category — a verified Costco audience, activated through a partner platform, with frequency managed at the household level so the message doesn’t wear out its welcome. Two weeks later, that household buys the product in the warehouse, card scanned at the register. The streaming campaign is credited with a sale it genuinely helped create — streaming storytelling, warehouse proof.',
+    layers: ['Identity', 'Audience & prediction', 'Activation', 'Measurement'],
   },
 ];
+
+/* ---- Story visuals: familiar ad formats, drawn in code ---- */
+function StoryVisual({ type }) {
+  if (type === 'banner') {
+    return (
+      <div className="border border-gray-300 bg-white w-full">
+        <div className="flex items-center gap-2 bg-gray-100 border-b border-gray-200 px-3 py-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-red-400" /><span className="w-2.5 h-2.5 rounded-full bg-yellow-400" /><span className="w-2.5 h-2.5 rounded-full bg-green-400" />
+          <span className="ml-2 text-[10px] text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-0.5">costco.com</span>
+        </div>
+        <div className="p-3">
+          <div className="bg-costco-darkBlue text-white p-4 mb-2.5">
+            <p className="text-[13px] font-extrabold leading-tight">YOUR ITEM.<br />CHOSEN FOR THIS MEMBER.</p>
+            <p className="text-[9px] text-blue-200 mt-1">Reserved Display — decided in real time</p>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="border border-gray-200 p-2"><div className="bg-gray-100 h-9 mb-1.5 flex items-center justify-center"><div className="w-6 h-7 bg-costco-blue/60" /></div><p className="text-[8px] text-gray-500">$24.99</p></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (type === 'spa') {
+    return (
+      <div className="border border-gray-300 bg-white w-full">
+        <div className="flex items-center gap-2 bg-gray-100 border-b border-gray-200 px-3 py-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-red-400" /><span className="w-2.5 h-2.5 rounded-full bg-yellow-400" /><span className="w-2.5 h-2.5 rounded-full bg-green-400" />
+          <span className="ml-2 text-[10px] text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-0.5">costco.com — search</span>
+        </div>
+        <div className="p-3">
+          <div className="flex items-center gap-2 border border-gray-300 rounded-full px-3 py-1.5 mb-3">
+            <Search className="w-3.5 h-3.5 text-gray-400" /><span className="text-[10px] text-gray-600">coffee, whole bean</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="border-2 border-costco-red bg-red-50 p-2">
+              <div className="bg-gray-100 h-9 mb-1.5 flex items-center justify-center"><div className="w-6 h-7 bg-costco-blue/70" /></div>
+              <p className="text-[8px] font-bold text-gray-800">YOUR COFFEE</p>
+              <p className="text-[8px] font-extrabold text-costco-red uppercase">Sponsored · In stock near them</p>
+            </div>
+            {[0, 1].map((i) => (
+              <div key={i} className="border border-gray-200 p-2"><div className="bg-gray-100 h-9 mb-1.5 flex items-center justify-center"><div className="w-6 h-7 bg-costco-blue/40" /></div><p className="text-[8px] text-gray-500">$18.99</p></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (type === 'shopping') {
+    return (
+      <div className="border border-gray-300 bg-white w-full">
+        <div className="flex items-center gap-2 bg-gray-100 border-b border-gray-200 px-3 py-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-red-400" /><span className="w-2.5 h-2.5 rounded-full bg-yellow-400" /><span className="w-2.5 h-2.5 rounded-full bg-green-400" />
+          <span className="ml-2 text-[10px] text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-0.5">google.com — shopping</span>
+        </div>
+        <div className="p-3">
+          <div className="flex items-center gap-2 border border-gray-300 rounded-full px-3 py-1.5 mb-3">
+            <Search className="w-3.5 h-3.5 text-gray-400" /><span className="text-[10px] text-gray-600">best coffee maker under $200</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="border-2 border-costco-blue bg-blue-50 p-2">
+              <div className="bg-white h-9 mb-1.5 flex items-center justify-center border border-gray-100"><div className="w-6 h-7 bg-costco-blue/70" /></div>
+              <p className="text-[8px] font-bold text-gray-800">YOUR MODEL</p>
+              <p className="text-[8px] font-bold text-costco-blue">at Costco.com</p>
+            </div>
+            {[0, 1].map((i) => (
+              <div key={i} className="border border-gray-200 p-2"><div className="bg-gray-100 h-9 mb-1.5" /><p className="text-[8px] text-gray-500">Similar model</p></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="w-full">
+      <div className="bg-gray-950 rounded-lg aspect-video flex flex-col items-center justify-center relative overflow-hidden">
+        <Play className="w-10 h-10 text-white/90" />
+        <div className="absolute top-2 left-3 text-[9px] font-bold text-white/70 uppercase tracking-wider">Streaming · Living room</div>
+        <div className="absolute bottom-0 inset-x-0 bg-costco-red text-white text-[10px] font-extrabold px-3 py-1.5">YOUR BRAND — FOR COSTCO HOUSEHOLDS</div>
+      </div>
+      <p className="text-[9px] text-gray-400 mt-2 text-center">Verified member audience · Household frequency managed</p>
+    </div>
+  );
+}
 
 const FAQS = [
   {
@@ -209,7 +314,7 @@ export default function ConceptVelocity() {
             The platform
           </p>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-12">
-            Seven layers. One foundation.
+            The whole journey, in one platform.
           </h2>
 
           {/* Stack visual + selector */}
@@ -240,7 +345,11 @@ export default function ConceptVelocity() {
                 <ActiveIcon className="w-6 h-6" />
               </div>
               <h3 className="text-2xl font-extrabold text-gray-900 mb-3">{activeLayer.label}</h3>
-              <p className="text-gray-700 leading-relaxed text-lg">{activeLayer.line}</p>
+              <p className="text-gray-900 leading-relaxed text-lg font-semibold mb-4">{activeLayer.line}</p>
+              <p className="text-gray-700 leading-relaxed mb-5">{activeLayer.detail}</p>
+              <p className="text-sm text-gray-900 bg-gray-50 border-l-4 border-costco-red p-3">
+                <span className="font-extrabold">In practice:</span> {activeLayer.example}
+              </p>
             </div>
           </div>
 
@@ -262,27 +371,41 @@ export default function ConceptVelocity() {
           <p className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em] text-blue-300 mb-3">
             Velocity at work
           </p>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-14">
-            In practice.
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-4">
+            Familiar formats. A different engine.
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {EXAMPLES.map((e) => {
-              const Icon = e.icon;
-              return (
-                <div key={e.title} className="bg-white text-gray-900 p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="bg-blue-100 text-costco-blue p-3">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-extrabold uppercase tracking-widest text-costco-red">
-                      {e.tag}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl font-extrabold leading-snug mb-2">{e.title}</h3>
-                  <p className="text-gray-700 leading-relaxed">{e.body}</p>
+          <p className="text-lg text-blue-100 max-w-3xl mb-14">
+            Four formats any media buyer knows — and what changes when
+            Costco Velocity is integrated underneath them.
+          </p>
+          <div className="space-y-6">
+            {EXAMPLES.map((e, i) => (
+              <div
+                key={e.title}
+                className={`bg-white text-gray-900 p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center`}
+              >
+                <div className={`lg:col-span-5 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+                  <StoryVisual type={e.mock} />
                 </div>
-              );
-            })}
+                <div className="lg:col-span-7">
+                  <p className="text-xs font-extrabold uppercase tracking-widest text-costco-red mb-2">
+                    {e.format}
+                  </p>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold leading-snug mb-3">{e.title}</h3>
+                  <p className="text-gray-700 leading-relaxed mb-5">{e.story}</p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[11px] font-extrabold uppercase tracking-wide text-gray-500 mr-1">
+                      Powered by
+                    </span>
+                    {e.layers.map((l) => (
+                      <span key={l} className="text-[11px] font-bold bg-blue-50 text-costco-blue border border-blue-200 rounded-full px-2.5 py-1">
+                        {l}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
