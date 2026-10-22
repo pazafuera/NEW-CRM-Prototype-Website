@@ -728,10 +728,9 @@ export default function ConceptSolutions() {
             Reach members wherever they are.
           </p>
           <p className="text-lg text-blue-100 max-w-3xl leading-relaxed">
-            Measurable sales growth across Costco.com, the warehouse, and
-            everywhere members shop in between — transparent reporting
-            and closed-loop measurement on every campaign. Start with
-            the overview; open any format for the detail.
+            Measurable sales growth across Costco.com, the warehouse,
+            and everywhere members shop in between — with transparent
+            reporting and closed-loop measurement on every campaign.
           </p>
         </div>
       </section>
