@@ -25,7 +25,7 @@ import {
     and engine that powers it: core data, consent & preferences,
     identity resolution, signal capture, audience & prediction,
     activation, closed-loop measurement.
-  - Pillars: Convert (onsite) and Reach (offsite).
+  - (Reach/Convert pillar names were dropped by Mark — not used.)
   - Purpose: amplify item discovery to drive sales — bring the
     Treasure Hunt upstream. An engine to move merchandise.
   - Principles: transparent foundation, member-first architecture
@@ -81,7 +81,7 @@ const LAYERS = [
     icon: Send,
     label: 'Activation',
     title: 'Modular, at every point of contact',
-    body: 'Activation is where the platform goes to work, in two suites. Convert powers onsite media — Costco.com and the app. Reach powers offsite media — the open web, search, social and streaming, delivered directly and through partner platforms. The same foundation also reaches physical spaces, and new channels plug in as members discover items in new places.',
+    body: 'Activation is where the platform goes to work: onsite on Costco.com and in the app; offsite across the open web, search, social and streaming, delivered directly and through partner platforms; and in physical spaces, in the warehouse itself. New channels plug into the same foundation as members discover items in new places.',
     enables: 'Makes possible: members reached wherever they are consuming content, from one foundation.',
   },
   {
@@ -112,21 +112,21 @@ const PRINCIPLES = [
 const EXAMPLES = [
   {
     icon: MonitorSmartphone,
-    tag: 'Convert — onsite, in real time',
+    tag: 'Onsite — in real time',
     title: 'The digital endcap that knows its member',
-    body: 'A member opens Costco.com. Everything the platform needs sits inside Costco\u2019s private cloud, so in the moment the page loads, verified purchase signals and member segmentation shape what they see. The endcap carries the item they are most likely to love — a discovery they might not have made until the warehouse, made before the trip. Convert\u2019s Performance Display works this way: personalised placements, optimised toward sales, visible in flight.',
+    body: 'A member opens Costco.com. Everything the platform needs sits inside Costco\u2019s private cloud, so in the moment the page loads, verified purchase signals and member segmentation shape what they see. The endcap carries the item they are most likely to love — a discovery they might not have made until the warehouse, made before the trip. Onsite display works this way: personalised placements, optimised toward sales, visible in flight.',
   },
   {
     icon: Globe2,
-    tag: 'Reach — offsite, through partners',
+    tag: 'Offsite — through partners',
     title: 'Plugged into The Trade Desk',
-    body: 'A brand\u2019s team plans its media in The Trade Desk, a platform it already uses. Velocity plugs into that activation layer: Costco audiences — more than 1,300 custom segments, built and governed inside Costco\u2019s own environment — become available there, and reach members across the open web. Costco\u2019s information never ships out. When members buy, Reach\u2019s in-flight dashboard shows the verified sales while the campaign is still live — so teams optimise, not just attribute.',
+    body: 'A brand\u2019s team plans its media in The Trade Desk, a platform it already uses. Velocity plugs into that activation layer: Costco audiences — more than 1,300 custom segments, built and governed inside Costco\u2019s own environment — become available there, and reach members across the open web. Costco\u2019s information never ships out. When members buy, the in-flight dashboard shows the verified sales while the campaign is still live — so teams optimise, not just attribute.',
   },
   {
     icon: Search,
-    tag: 'Reach — discovery starts with search',
+    tag: 'Offsite — discovery starts with search',
     title: 'The Treasure Hunt, at the search bar',
-    body: 'For millions of members, the journey doesn\u2019t start at Costco\u2019s front door — it starts in a search bar, researching and comparing long before a trip. Reach\u2019s Performance Ads extend the Costco shelf into that moment, placing the items members are hunting for directly in product search results and routing them to Costco — discovery captured at the point of intent, measured closed-loop like everything else on the platform.',
+    body: 'For millions of members, the journey doesn\u2019t start at Costco\u2019s front door — it starts in a search bar, researching and comparing long before a trip. Performance Ads extend the Costco shelf into that moment, placing the items members are hunting for directly in product search results and routing them to Costco — discovery captured at the point of intent, measured closed-loop like everything else on the platform.',
   },
   {
     icon: Store,
@@ -142,8 +142,8 @@ const FAQS = [
     a: 'No — and the distinction matters. Costco Retail Media is the program: the team, the partnerships, the media brands buy. Costco Velocity is the technology platform underneath it — data, consent, identity, signals, audiences and prediction, activation, and the measurement engine. When we say a campaign is \u201cpowered by Costco Velocity,\u201d this page is what we mean.',
   },
   {
-    q: 'What are Convert and Reach?',
-    a: 'They are the two media suites the platform powers. Convert is onsite: media on Costco.com and in the app, including Performance Display — personalised digital endcaps decided in real time. Reach is offsite: programmatic, search, social and streaming that meet members wherever they are consuming content, activated directly or through partner platforms like The Trade Desk.',
+    q: 'Can we see results while a campaign is still running?',
+    a: 'Yes — that is a deliberate part of the design. For offsite programmatic, an in-flight dashboard (delivered through a secure clean-room environment) matches impressions to verified sales while the campaign is live, so teams can optimise during the flight instead of reading a post-mortem afterward. It rolled out first for campaigns run through The Trade Desk.',
   },
   {
     q: 'Where does the information live?',
@@ -159,7 +159,7 @@ const FAQS = [
   },
   {
     q: 'What measurement will we actually receive?',
-    a: 'Closed-loop sales reporting — online and warehouse, incrementality in view — and, for offsite programmatic, in-flight: a self-serve dashboard (delivered through a secure clean-room environment) that matches impressions to verified sales while the campaign is live, so you can optimise during the flight instead of reading about it afterward. Reach measurement rolled out first for campaigns run through The Trade Desk.',
+    a: 'Closed-loop sales reporting — online and warehouse, at SKU level where it applies, with incrementality in view: the growth the campaign created, not just the sales it touched. Depending on the format, that arrives as a live dashboard, clean-room outputs, or conversions sent back into your own platforms through the Conversion API.',
   },
 ];
 
@@ -430,8 +430,7 @@ export default function ConceptVelocity() {
         <div className="container-custom">
           <p className="text-[11px] leading-relaxed text-gray-400 max-w-5xl">
             Notes: Costco Velocity is the technology platform powering
-            Costco Retail Media, organised in two media suites —
-            Convert (onsite) and Reach (offsite). Integration and
+            Costco Retail Media. Integration and
             dashboard availability vary by partner and format and are
             confirmed by the Costco Retail Media team.
           </p>
