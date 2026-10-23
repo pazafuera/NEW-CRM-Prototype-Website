@@ -12,7 +12,7 @@ import ConceptVelocity from './concept/ConceptVelocity';
 import ConceptPartners from './concept/ConceptPartners';
 import Solutions from './pages/solutions';
 import Velocity from './pages/velocity';
-import Updates from './pages/updates';
+import ConceptUpdates from './concept/ConceptUpdates';
 import MemberDashboard from './pages/MemberDashboard';
 
 // 1. Import the new simulator page
@@ -41,7 +41,7 @@ export default function App() {
                   <Route path="/partners" element={<ConceptPartners />} />
                   <Route path="/solutions" element={<Solutions />} />
                   <Route path="/velocity" element={<Velocity />} />
-                  <Route path="/updates" element={<Updates />} />
+                  <Route path="/updates" element={<ConceptUpdates />} />
                   <Route path="/member" element={<MemberDashboard />} />
                 </Routes>
               </main>
