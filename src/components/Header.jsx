@@ -53,6 +53,12 @@ export default function Header() {
               Velocity
             </Link>
             <Link
+              to="/partners"
+              className={`transition-colors ${isActive('/partners')}`}
+            >
+              Partners
+            </Link>
+            <Link
               to="/updates"
               className={`transition-colors ${isActive('/updates')}`}
             >
@@ -108,6 +114,13 @@ export default function Header() {
             className="block py-1"
           >
             Velocity
+          </Link>
+          <Link
+            to="/partners"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="block py-1"
+          >
+            Partners
           </Link>
           <Link
             to="/updates"

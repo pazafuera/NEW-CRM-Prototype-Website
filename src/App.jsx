@@ -9,20 +9,25 @@ import Home from './pages/home';
 import Solutions from './pages/solutions';
 import Velocity from './pages/velocity';
 import Updates from './pages/updates';
-import MemberDashboard from './pages/MemberDashboard';
+import Partners from './pages/partners';
 
-// 1. Import the new simulator page
-import AdSimulator from './pages/AdSimulator';
+// Legacy (pre-refresh) pages, kept for reference under /legacy
+import LegacyHome from './legacy/home';
+import LegacySolutions from './legacy/solutions';
+import LegacyVelocity from './legacy/velocity';
+import LegacyUpdates from './legacy/updates';
+import LegacyMemberDashboard from './legacy/MemberDashboard';
+import LegacyAdSimulator from './legacy/AdSimulator';
 
 export default function App() {
   return (
     <HashRouter>
       <ScrollToHash />
       <Routes>
-        {/* STANDALONE SIMULATOR ROUTE (No main Header/Footer) */}
-        <Route path="/simulator" element={<AdSimulator />} />
+        {/* STANDALONE LEGACY SIMULATOR ROUTE (No main Header/Footer) */}
+        <Route path="/legacy/simulator" element={<LegacyAdSimulator />} />
 
-        {/* CORE PROTOTYPE WEBSITE ROUTES */}
+        {/* CORE WEBSITE ROUTES */}
         <Route
           path="/*"
           element={
@@ -34,7 +39,13 @@ export default function App() {
                   <Route path="/solutions" element={<Solutions />} />
                   <Route path="/velocity" element={<Velocity />} />
                   <Route path="/updates" element={<Updates />} />
-                  <Route path="/member" element={<MemberDashboard />} />
+                  <Route path="/partners" element={<Partners />} />
+                  {/* Legacy backup */}
+                  <Route path="/legacy" element={<LegacyHome />} />
+                  <Route path="/legacy/solutions" element={<LegacySolutions />} />
+                  <Route path="/legacy/velocity" element={<LegacyVelocity />} />
+                  <Route path="/legacy/updates" element={<LegacyUpdates />} />
+                  <Route path="/legacy/member" element={<LegacyMemberDashboard />} />
                 </Routes>
               </main>
               <Footer />
