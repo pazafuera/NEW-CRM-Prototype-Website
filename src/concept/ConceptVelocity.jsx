@@ -27,43 +27,43 @@ const LAYERS = [
   {
     id: 'core-data', icon: Database, label: 'Core Data',
     line: 'Costco\u2019s businesses — warehouse, online, travel, fuel — connected in Costco\u2019s private cloud, organised around the member.',
-    detail: 'Warehouse transactions, Costco.com, the app, same-day delivery, travel, fuel — information that once lived in separate systems, now structured the same way in one environment.',
+    detail: 'Warehouse, online, app, same-day, travel, and fuel — information that once lived in separate systems, connected in one environment.',
     example: 'A member who buys coffee in the warehouse and browses grinders online is one member, with one history.',
   },
   {
     id: 'consent', icon: SlidersHorizontal, label: 'Consent & Preferences',
     line: 'Each member\u2019s choices, recorded once and honoured across every experience.',
-    detail: 'Preferences captured at any touchpoint — communication choices, app settings, opt-outs — propagate across the platform, so every activation respects them automatically.',
+    detail: 'Choices captured at any touchpoint propagate across the platform, so every activation respects them automatically.',
     example: 'A member who turns down promotional email is not chased with the same campaign somewhere else.',
   },
   {
     id: 'identity', icon: Fingerprint, label: 'Identity Resolution',
     line: 'Activity across Costco, resolved to the membership behind it — a household Costco knows.',
-    detail: 'Membership records, verified logins, and transaction history resolve to a single household view — deterministic identity, maintained by Costco, with no third-party cookies involved.',
+    detail: 'Membership records, verified logins, and transaction history resolve to a single household view — deterministic, and maintained by Costco.',
     example: 'The member researching TVs on a phone is recognised as the household that buys its paper goods in the warehouse.',
   },
   {
     id: 'signals', icon: Activity, label: 'Signal Capture',
     line: 'Purchases, browsing and responses flow back continuously. The picture is always current.',
-    detail: 'Impressions, streams, clicks, list adds, and register transactions stream back continuously — including the warehouse, where the great majority of Costco sales happen.',
+    detail: 'Impressions, streams, clicks, list adds, and register transactions stream back continuously — including the warehouse, where most Costco sales happen.',
     example: 'A live campaign can respond to this morning’s warehouse sales — not last quarter’s report.',
   },
   {
     id: 'prediction', icon: Sparkles, label: 'Audience & Prediction',
     line: 'Audiences of shared taste — and a prediction of the item each member would most want to find next.',
-    detail: 'More than 1,300 pre-built and custom audiences, plus machine-learned relevance for each member — refreshed from live signals rather than fixed segments built on who a member was last month.',
+    detail: '1,300+ pre-built and custom audiences, plus learned relevance for each member — refreshed from live signals, not static segments.',
     example: 'The member most likely to love the new trail mix is identified before it ever reaches an endcap.',
   },
   {
     id: 'activation', icon: Send, label: 'Activation',
     line: 'Media delivered from one foundation: onsite, offsite, and in real life.',
-    detail: 'The same audiences and predictions activate everywhere: Costco.com and the app, partner platforms such as The Trade Desk, product search, streaming and social, and warehouse media — one definition, every destination.',
+    detail: 'The same audiences activate everywhere — Costco.com, the app, partner platforms, search, streaming, social, and warehouse media.',
     example: 'One audience, planned once, follows the member’s whole journey — and is measured the same way at every step.',
   },
   {
     id: 'measurement', icon: LineChart, label: 'Closed-Loop Measurement',
     line: 'Results in actual, incremental sales — increasingly in flight, while campaigns can still improve.',
-    detail: 'Exposure is matched to membership-linked transactions to report sales, new-to-brand buyers, and incrementality — delivered as dashboards, clean-room outputs, in-flight views, or back into your platforms through the Conversion API.',
+    detail: 'Exposure matched to membership-linked transactions: sales, new-to-brand, and incrementality — via dashboards, clean-room outputs, in-flight views, or the Conversion API.',
     example: 'A streaming campaign can be credited with the warehouse sales it actually created — while it is still running.',
   },
 ];
@@ -85,32 +85,32 @@ const PRINCIPLES = [
 
 const EXAMPLES = [
   {
-    format: 'Onsite banner — Reserved Display',
+    format: 'Onsite',
     mock: 'banner',
-    title: 'The homepage banner that behaves like an endcap',
-    story: 'A member arrives on the Costco.com homepage. In the time the page takes to load, Velocity weighs what that member actually buys, what they have been browsing, and what their household is likely to want next — and the banner becomes the endcap for the item that fits. It is a familiar format, a homepage banner. What is different is everything behind it: the decision happens inside Costco’s private cloud, on verified purchase signals — and when the member later buys that item in the warehouse, the sale is credited back to this placement.',
-    layers: ['Core data', 'Identity', 'Prediction', 'Measurement'],
+    title: 'Homepage Banner — Reserved Display',
+    story: 'A member browsing Costco.com sees a homepage banner. Behind it, Velocity’s decision engine weighs that member’s purchase history, browsing behavior, and other preference signals to select the next best message for that member specifically. Verified exposure is then tied to verified purchases — online and in the warehouse — for closed-loop performance measurement.',
+    layers: ['Decision engine', 'Preference signals', 'Closed-loop measurement'],
   },
   {
-    format: 'Onsite sponsored product ad',
+    format: 'Onsite',
     mock: 'spa',
-    title: 'Search results that know the warehouse',
-    story: 'A member searches Costco.com for coffee. Sponsored product ads compete for the top of the results — but Velocity shapes the auction with knowledge a search ad doesn’t usually have: the member’s purchase history, their category patterns, and live inventory, so a member is not shown an item their warehouse doesn’t stock. The click, the cart, and the eventual register ring — online or in the warehouse — all resolve to the same membership, so the brand sees the full result of winning that search.',
-    layers: ['Signal capture', 'Prediction', 'Activation', 'Measurement'],
+    title: 'Sponsored Product Ads',
+    story: 'A member searches Costco.com. Sponsored placements are ranked using Velocity’s understanding of that member — past purchases, category behavior, and propensity to buy — and checked against live inventory, so the sponsored item is relevant and actually available. Clicks and conversions resolve to the same membership, giving the brand a complete, verified view of performance.',
+    layers: ['Propensity', 'Live inventory', 'Verified conversion'],
   },
   {
-    format: 'Offsite — Performance Shopping Ads on Google',
+    format: 'Offsite',
     mock: 'shopping',
-    title: 'The shelf, extended to the search bar',
-    story: 'This member never starts at Costco. They start on Google, comparing coffee makers. A shopping ad for a model stocked at Costco appears — placed there because Performance Ads, running on Velocity, recognised the intent and matched it to a Costco item. The click lands on Costco.com, and the purchase joins the member’s history like any other. Discovery that once happened only in the aisle now happens at the first moment of intent — measured closed-loop, back to the sale.',
-    layers: ['Prediction', 'Activation', 'Signal capture', 'Measurement'],
+    title: 'Performance Shopping Ads — Google',
+    story: 'A shopper searches Google for a product Costco carries. Performance Ads, connected to Velocity, match that intent to the right Costco item and route the click to Costco.com. The resulting purchase is captured as a verified conversion — so discovery that starts outside Costco is measured to the same closed-loop standard as media inside it.',
+    layers: ['Intent matching', 'Verified conversion', 'Closed-loop measurement'],
   },
   {
-    format: 'Offsite — Connected TV',
+    format: 'Offsite',
     mock: 'ctv',
-    title: 'Streaming TV, aimed like a membership',
-    story: 'A household settles in to stream a show. The ad they see was chosen because Velocity knows this membership buys in the category — a verified Costco audience, activated through a partner platform, with frequency managed at the household level so the message doesn’t wear out its welcome. Two weeks later, that household buys the product in the warehouse, card scanned at the register. The streaming campaign is credited with a sale it genuinely helped create — streaming storytelling, warehouse proof.',
-    layers: ['Identity', 'Audience & prediction', 'Activation', 'Measurement'],
+    title: 'Connected TV',
+    story: 'A household streams TV. The ad is selected because Velocity audiences — built from verified membership and purchase behavior — have been activated through a partner platform, with frequency managed at the household level. When that household later buys in the warehouse, the verified transaction connects the big screen to the register.',
+    layers: ['Verified audiences', 'Household frequency', 'Closed-loop measurement'],
   },
 ];
 
@@ -280,11 +280,10 @@ export default function ConceptVelocity() {
           </h2>
           <p className="text-lg text-gray-700 leading-relaxed max-w-3xl mb-14">
             Discovery is the heart of Costco — the great item you
-            didn&rsquo;t know you needed. Velocity expands that
-            experience beyond the warehouse walls, striving to
-            understand and predict what each member needs, wants, and
-            prefers — so the right items surface sooner, wherever the
-            member is.
+            didn&rsquo;t know you needed. Velocity extends that
+            experience beyond the warehouse, working to understand
+            and predict what each member needs, wants, and prefers —
+            so the right items surface sooner, wherever they are.
           </p>
 
           {/* Understand → Predict → Discover visual */}
@@ -375,8 +374,8 @@ export default function ConceptVelocity() {
             Familiar formats. A different engine.
           </h2>
           <p className="text-lg text-blue-100 max-w-3xl mb-14">
-            Four formats any media buyer knows — and what changes when
-            Costco Velocity is integrated underneath them.
+            Four familiar formats — the product, its connection to
+            Velocity, and what that enables.
           </p>
           <div className="space-y-6">
             {EXAMPLES.map((e, i) => (
