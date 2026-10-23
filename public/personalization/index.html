@@ -38,7 +38,7 @@
       import React, { useState, useEffect, useRef } from 'react';
       import { createRoot } from 'react-dom/client';
       import { 
-        Search, ShoppingCart, Menu, MapPin, User, ChevronRight, ChevronLeft, Star, 
+        Search, ShoppingCart, Menu, MapPin, User, ChevronRight, ChevronLeft, ChevronDown, Star, 
         TrendingUp, Zap, Package, CreditCard, RefreshCw, Info, Tag, Smartphone, 
         Fuel, Shield, Car, DollarSign, Utensils, Camera, Headphones, Flame, 
         ArrowRightLeft, Megaphone, Monitor, Baby, Wifi, MousePointer, Droplet, 
@@ -113,9 +113,9 @@
         ]
       };
       const PUSH_BENTO = {
-        title: "Costco Next",
-        subtitle: "Shop directly from our trusted suppliers and save.",
-        cta: "View Brands",
+        title: "More to Explore",
+        subtitle: "More of what you love — picks and brands matched to you.",
+        cta: "Explore More",
         color: "bg-emerald-800 text-white",
         image: <Globe size={80} className="text-emerald-400 opacity-20 absolute bottom-4 right-4" />
       };
@@ -310,7 +310,7 @@
             autoRenew: true
           },
           cornerstones: [
-            { label: "Costco Next", icon: <Globe size={14} />, color: "bg-blue-100 text-blue-900 border-blue-200" },
+            { label: "More to Explore", icon: <Globe size={14} />, color: "bg-blue-100 text-blue-900 border-blue-200" },
             { label: "Rebates", icon: <Percent size={14} />, color: "bg-gray-100 text-gray-800 border-gray-200" }
           ],
           memberService: {
@@ -863,6 +863,33 @@
           </div>
         );
       };
+      const MembershipBar = ({ persona, open, onToggle }) => {
+        const isGoldStar = persona.tier === 'Gold Star';
+        const container = isGoldStar ? 'bg-gray-50 border border-gray-300 text-gray-900' : 'bg-gradient-to-r from-gray-900 to-gray-800 text-white';
+        return (
+          <button onClick={onToggle} className={`w-full ${container} rounded-lg px-5 py-3.5 flex items-center gap-4 shadow-md text-left hover:shadow-lg transition-shadow`}>
+            <div className={`${isGoldStar ? 'bg-gray-200' : 'bg-white/10'} p-2 rounded-full shrink-0`}>{isGoldStar ? <Star className="text-gray-600" size={18} /> : <CreditCard className="text-yellow-400" size={18} />}</div>
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="font-bold">{persona.tier}</span>
+              {!isGoldStar && <span className="bg-yellow-500 text-black text-[10px] px-1.5 py-0.5 rounded uppercase font-bold">Active</span>}
+            </div>
+            <div className={`hidden md:block w-px h-8 ${isGoldStar ? 'bg-gray-300' : 'bg-gray-600'}`}></div>
+            {isGoldStar ? (
+              <span className="text-sm flex-1">Upgrade to Executive to earn a 2% annual reward on every purchase.</span>
+            ) : (
+              <div className="flex items-center gap-5 flex-1 min-w-0">
+                <span className="text-sm shrink-0"><span className="opacity-70 text-xs block">Est. 2% Reward</span><span className="font-bold text-lg leading-none">${persona.rewards.toFixed(2)}</span></span>
+                <span className="text-sm shrink-0"><span className="opacity-70 text-xs block">Wallet</span><span className="font-bold text-lg leading-none">${(persona.walletBalance || 0).toFixed(2)}</span></span>
+                <span className="hidden xl:block text-xs opacity-80 truncate">Your rewards, benefits, and member services — all in one place.</span>
+              </div>
+            )}
+            <span className={`shrink-0 flex items-center gap-1.5 font-bold text-sm px-3 py-2 rounded hover:opacity-90 ${isGoldStar ? 'bg-blue-700 text-white' : 'bg-yellow-500 text-black'}`}>
+              {open ? 'Hide details' : (isGoldStar ? 'See upgrade benefits' : 'View rewards & benefits')}
+              <ChevronDown size={16} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+            </span>
+          </button>
+        );
+      };
       const MembershipWidget = ({ persona }) => {
         const isGoldStar = persona.tier === 'Gold Star';
         const styles = isGoldStar ? { container: "bg-gray-50 border border-gray-200 text-gray-900", divider: "bg-gray-200", iconBg: "bg-gray-200", textPrimary: "text-gray-800", textSecondary: "text-gray-600", serviceTitle: "text-blue-800", serviceText: "text-gray-500", arrow: "text-blue-800", verticalDivider: "bg-gray-300" } : { container: "bg-gradient-to-r from-gray-900 to-gray-800 text-white", divider: "bg-gray-600", iconBg: "bg-white/10", textPrimary: "text-white", textSecondary: "text-gray-300", serviceTitle: "text-blue-300", serviceText: "text-gray-300", arrow: "text-white", verticalDivider: "bg-gray-600" };
@@ -902,8 +929,12 @@
           </div>
         );
       };
-      const ProductCard = ({ product, compact = false }) => (
-        <div className={`group relative bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer flex flex-col h-full ${compact ? 'min-w-[160px] w-[160px]' : 'w-full'}`}>
+      const ProductCard = ({ product, compact = false }) => {
+        const hl = React.useContext(HighlightContext);
+        const adOn = hl.ads && product.isSponsored;
+        return (
+        <div className={`group relative bg-white border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer flex flex-col h-full ${compact ? 'min-w-[160px] w-[160px]' : 'w-full'} ${adOn ? 'ring-4 ring-red-500 ring-offset-1' : ''}`}>
+          {adOn && <span className="absolute -top-2 right-2 z-20 bg-red-600 text-white text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded shadow">Personalized Ad</span>}
           {product.savings > 0 && <div className="absolute top-2 left-2 bg-blue-700 text-white text-xs font-bold px-2 py-1 rounded">${product.savings} OFF</div>}
           <div className={`bg-gray-100 rounded mb-3 overflow-hidden ${compact ? 'h-32' : 'h-48'} flex items-center justify-center shrink-0`}>
              {product.image ? product.image : (product.isService ? <Smartphone className="text-gray-400 w-12 h-12" /> : <Package className="text-gray-400 w-12 h-12" />)}
@@ -925,7 +956,8 @@
           </div>
           <button className="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded text-sm transition-colors opacity-0 group-hover:opacity-100 lg:opacity-0 lg:group-hover:opacity-100 opacity-100">{product.price > 0 ? "Add" : "View"}</button>
         </div>
-      );
+        );
+      };
       const SectionHeader = ({ title, linkText = "View All" }) => (
         <div className="flex justify-between items-end mb-4 border-b border-gray-200 pb-2">
           <h2 className="text-xl md:text-2xl font-bold text-gray-800">{title}</h2>
@@ -933,14 +965,18 @@
         </div>
       );
       const HeroCarousel = ({ persona }) => {
+        const hl = React.useContext(HighlightContext);
         const [currentSlide, setCurrentSlide] = useState(0);
         const slides = [persona.hero, STATIC_SLIDES.SAMSUNG, STATIC_SLIDES.KIRKLAND, STATIC_SLIDES.PG, STATIC_SLIDES.MICHELIN];
         useEffect(() => { setCurrentSlide(0); }, [persona.id]);
         useEffect(() => { const timer = setInterval(() => { setCurrentSlide((prev) => (prev + 1) % slides.length); }, 5000); return () => clearInterval(timer); }, [slides.length]);
         const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
         const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+        const adOn = hl.ads && slides[currentSlide]?.isSponsored;
         return (
-          <div className="relative rounded-xl overflow-hidden shadow-lg h-[400px]">
+          <div className={`relative rounded-xl shadow-lg h-[400px] ${adOn ? 'ring-4 ring-red-500 ring-offset-2' : ''}`}>
+            {adOn && <span className="absolute -top-3 left-3 z-40 bg-red-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded shadow">Personalized Ad Slot</span>}
+            <div className="relative rounded-xl overflow-hidden h-full">
             {slides.map((slide, index) => (
               <div key={index} className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'} ${slide.color}`}>
                  <div className="absolute inset-0 bg-black/20"></div>
@@ -958,6 +994,7 @@
             <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-colors"><ChevronLeft size={24} /></button>
             <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-colors"><ChevronRight size={24} /></button>
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">{slides.map((_, index) => (<button key={index} onClick={() => setCurrentSlide(index)} className={`w-2.5 h-2.5 rounded-full transition-all ${index === currentSlide ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80'}`} />))}</div>
+            </div>
           </div>
         );
       };
@@ -1175,49 +1212,76 @@
           </section>
         );
       };
+      const HighlightContext = React.createContext({ personalized: false, ads: false, merch: false });
+      const HL_META = {
+        personalized: { ring: 'ring-4 ring-purple-500 ring-offset-2', chip: 'bg-purple-600', label: 'Personalized' },
+        ads: { ring: 'ring-4 ring-red-500 ring-offset-2', chip: 'bg-red-600', label: 'Personalized Ad Slot' },
+        merch: { ring: 'ring-4 ring-sky-600 ring-offset-2', chip: 'bg-sky-700', label: 'Merchandising' },
+      };
+      const HL = ({ type, when = true, children }) => {
+        const hl = React.useContext(HighlightContext);
+        const on = when && ((type === 'personalized' && hl.personalized) || (type === 'ads' && hl.ads) || (type === 'merch' && hl.merch));
+        const meta = HL_META[type];
+        return (
+          <div className={`relative ${on ? meta.ring + ' rounded-xl' : ''}`}>
+            {on && <span className={`absolute -top-3 left-3 z-40 text-[10px] font-bold uppercase tracking-wider text-white px-2 py-0.5 rounded shadow ${meta.chip}`}>{meta.label}</span>}
+            {children}
+          </div>
+        );
+      };
       function App() {
+        const [hl, setHl] = useState({ personalized: false, ads: false, merch: false });
+        const [memberOpen, setMemberOpen] = useState(false);
         const [currentPersonaKey, setCurrentPersonaKey] = useState('FAMILY');
         const persona = PERSONAS[currentPersonaKey];
         return (
+          <HighlightContext.Provider value={hl}>
           <div className="min-h-screen bg-white font-sans text-gray-900">
             <div className="bg-indigo-50 border-b border-indigo-100 p-2 sticky top-0 z-50 shadow-sm">
               <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-sm">
                 <div className="flex items-center gap-2 text-indigo-900 font-medium"><RefreshCw size={16} /> <span>Personalization Prototype:</span></div>
                 <div className="flex gap-2">{Object.keys(PERSONAS).map(key => (<button key={key} onClick={() => setCurrentPersonaKey(key)} className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${currentPersonaKey === key ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-indigo-600 border border-indigo-200 hover:bg-indigo-50'}`}>{key === 'FAMILY' ? 'Busy Family' : key === 'BUSINESS' ? 'SMB Owner' : key === 'TECH' ? 'Tech Enthusiast' : key === 'WAREHOUSE' ? 'In-Warehouse' : 'Expiring Member'}</button>))}</div>
               </div>
+              <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-2 mt-1.5">
+                <span className="text-indigo-900 font-semibold text-xs uppercase tracking-wide mr-1">Highlight:</span>
+                <button onClick={() => setHl(h => ({ ...h, personalized: !h.personalized }))} className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${hl.personalized ? 'bg-purple-600 text-white shadow-md' : 'bg-white text-purple-700 border border-purple-300 hover:bg-purple-50'}`}><span className={`w-2 h-2 rounded-full ${hl.personalized ? 'bg-white' : 'bg-purple-600'}`}></span>Personalized</button>
+                <button onClick={() => setHl(h => ({ ...h, ads: !h.ads }))} className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${hl.ads ? 'bg-red-600 text-white shadow-md' : 'bg-white text-red-700 border border-red-300 hover:bg-red-50'}`}><span className={`w-2 h-2 rounded-full ${hl.ads ? 'bg-white' : 'bg-red-600'}`}></span>Personalized Ads</button>
+                <button onClick={() => setHl(h => ({ ...h, merch: !h.merch }))} className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all ${hl.merch ? 'bg-sky-700 text-white shadow-md' : 'bg-white text-sky-800 border border-sky-300 hover:bg-sky-50'}`}><span className={`w-2 h-2 rounded-full ${hl.merch ? 'bg-white' : 'bg-sky-700'}`}></span>Merchandising</button>
+              </div>
             </div>
             <header className="bg-white">
               <div className="bg-gray-100 py-1 px-4 text-xs text-gray-600 hidden md:block">
                 <div className="max-w-7xl mx-auto flex justify-between">
-                  <div className="flex gap-4"><span><b>{persona.warehouse}</b> is your local warehouse</span><span className="text-blue-700 hover:underline cursor-pointer">Change</span></div>
-                  <div className="flex gap-4"><span className="hover:underline cursor-pointer">Customer Service</span><span className="hover:underline cursor-pointer">US</span></div>
+                  <div className="flex gap-4 items-center"><span className="flex items-center gap-1"><MapPin size={12} className="text-gray-500" /><b>{persona.warehouse}</b>&nbsp;My Warehouse</span><span className="text-blue-700 hover:underline cursor-pointer">Change</span></div>
+                  <div className="flex gap-4"><span className="hover:underline cursor-pointer">Customer Service</span><span className="hover:underline cursor-pointer">Get Email Offers</span><span className="hover:underline cursor-pointer">US</span></div>
                 </div>
               </div>
               <div className="max-w-7xl mx-auto px-4 pt-4 pb-4">
                 <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-8">
-                  <div className="w-full lg:w-auto flex justify-between items-center"><h1 className="text-3xl font-bold tracking-tighter text-red-700 italic">Costco<span className="text-blue-700 not-italic">.com</span></h1><div className="lg:hidden flex gap-4 text-blue-700"><Search className="w-6 h-6" /><ShoppingCart className="w-6 h-6" /><Menu className="w-6 h-6" /></div></div>
-                  <div className="hidden lg:flex flex-1 relative w-full"><input type="text" placeholder={`Search ${currentPersonaKey === 'BUSINESS' ? 'business supplies' : 'Costco.com'}...`} className="w-full border border-gray-400 rounded-l h-10 px-4 focus:outline-none focus:border-blue-600" /><button className="bg-blue-700 hover:bg-blue-800 text-white h-10 px-6 rounded-r"><Search size={20} /></button></div>
-                  <div className="hidden lg:flex items-center gap-6 text-blue-700 font-semibold text-sm">
-                    <div className="flex flex-col items-center cursor-pointer group"><MapPin className="mb-1" /><span className="group-hover:underline">Warehouses</span></div>
-                    <div className="flex flex-col items-center cursor-pointer group relative"><User className="mb-1" /><span className="group-hover:underline">Account</span><span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span></div>
-                    <div className="flex flex-col items-center cursor-pointer group"><div className="relative"><ShoppingCart className="mb-1" /><span className="absolute -top-2 -right-2 bg-blue-700 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span></div><span className="group-hover:underline">Cart</span></div>
+                  <div className="w-full lg:w-auto flex justify-between items-center"><h1 className="flex flex-col leading-none cursor-pointer"><span className="text-[34px] font-black italic tracking-tighter text-red-700 leading-none">Costco</span><span className="text-[12px] font-bold tracking-[0.32em] text-blue-800 leading-none mt-1">WHOLESALE</span></h1><div className="lg:hidden flex gap-4 text-blue-700"><Search className="w-6 h-6" /><ShoppingCart className="w-6 h-6" /><Menu className="w-6 h-6" /></div></div>
+                  <div className="hidden lg:flex flex-1 relative w-full"><input type="text" placeholder={`Search ${currentPersonaKey === 'BUSINESS' ? 'business supplies' : 'Costco.com'}...`} className="w-full border border-gray-300 rounded-l-sm h-11 px-4 focus:outline-none focus:border-blue-600" /><button className="bg-blue-700 hover:bg-blue-800 text-white h-11 px-6 rounded-r-sm"><Search size={20} /></button></div>
+                  <div className="hidden lg:flex items-center gap-7 text-sm text-gray-700">
+                    <div className="flex items-center gap-2 cursor-pointer group"><User className="text-blue-800" size={24} /><span className="leading-tight group-hover:underline">Sign In /<br />Register</span></div>
+                    <div className="cursor-pointer hover:underline leading-tight">Orders &<br />Returns</div>
+                    <div className="flex flex-col items-center cursor-pointer group"><div className="relative"><ShoppingCart className="text-blue-800" size={24} /><span className="absolute -top-2 -right-2 bg-blue-700 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span></div><span className="group-hover:underline">Cart</span></div>
                   </div>
                 </div>
               </div>
               
-              <div className="bg-blue-800 text-white mt-0 shadow-md relative z-50">
+              <div className="bg-white border-y border-gray-200 relative z-50">
                 <div className="max-w-7xl mx-auto px-4">
-                  <div className="flex items-center justify-between h-10 text-sm font-bold">
-                    <div className="flex items-center gap-2 cursor-pointer lg:mr-8"><Menu size={18} /> Shop All Departments</div>
-                    <nav className="hidden md:flex flex-1 gap-6 overflow-hidden"><a href="#" className="hover:text-blue-200 whitespace-nowrap">Grocery</a><a href="#" className="hover:text-blue-200 whitespace-nowrap">Business Delivery</a><a href="#" className="hover:text-blue-200 whitespace-nowrap">Optical</a><a href="#" className="hover:text-blue-200 whitespace-nowrap">Pharmacy</a><a href="#" className="hover:text-blue-200 whitespace-nowrap">Services</a><a href="#" className="hover:text-blue-200 whitespace-nowrap">Photo</a><a href="#" className="hover:text-blue-200 whitespace-nowrap">Travel</a></nav>
+                  <div className="flex items-center justify-between h-11 text-[15px]">
+                    <div className="flex items-center gap-2 cursor-pointer lg:mr-8 font-bold text-blue-900"><Menu size={20} /> Shop All Departments</div>
+                    <nav className="hidden md:flex flex-1 gap-6 overflow-hidden text-gray-800"><a href="#" className="hover:text-blue-800 hover:underline whitespace-nowrap">Grocery</a><a href="#" className="hover:text-blue-800 hover:underline whitespace-nowrap">Same Day</a><a href="#" className="hover:text-blue-800 hover:underline whitespace-nowrap">Deals</a><a href="#" className="hover:text-blue-800 hover:underline whitespace-nowrap">Business Delivery</a><a href="#" className="hover:text-blue-800 hover:underline whitespace-nowrap">Optical</a><a href="#" className="hover:text-blue-800 hover:underline whitespace-nowrap">Pharmacy</a><a href="#" className="hover:text-blue-800 hover:underline whitespace-nowrap">Services</a><a href="#" className="hover:text-blue-800 hover:underline whitespace-nowrap">Photo</a><a href="#" className="hover:text-blue-800 hover:underline whitespace-nowrap">Travel</a></nav>
+                    <div className="hidden lg:flex items-center gap-1.5 text-sm text-gray-600 shrink-0"><MapPin size={15} className="text-gray-500" /><span><b className="text-gray-800">{persona.warehouse}</b> · My Warehouse</span></div>
                   </div>
                 </div>
               </div>
-              
+
               <MembershipAlertBanner alert={persona.membershipAlert} />
             </header>
             <main className="max-w-7xl mx-auto px-4 py-6 space-y-8 pt-6">
-              <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+              <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
                 <div className="lg:col-span-1 flex flex-col justify-center">
                   <h2 className="text-2xl font-bold text-gray-800">Good afternoon, {persona.name}.</h2>
                   <div className="flex items-center gap-2 text-sm text-gray-600 mt-1 mb-3"><span>Member since 2018</span><span>•</span><a href="#" className="text-blue-700 hover:underline">View recent orders</a><span>•</span><a href="#" className="text-blue-700 hover:underline">Lists</a></div>
@@ -1233,13 +1297,17 @@
                   )}
                 </div>
                 
-                <div className="lg:col-span-2 h-full"><MembershipWidget persona={persona} /></div>
+                <div className="lg:col-span-2 self-center"><MembershipBar persona={persona} open={memberOpen} onToggle={() => setMemberOpen(o => !o)} /></div>
+                {memberOpen && (<div className="lg:col-span-3"><MembershipWidget persona={persona} /></div>)}
               </section>
+              <HL type="ads">
               <div className={`w-full py-3 px-4 rounded-lg border flex flex-col sm:flex-row items-center justify-between gap-2 shadow-sm ${persona.adBanner.bg}`}>
                  <div className="flex items-center gap-2 text-center sm:text-left">{currentPersonaKey === 'WAREHOUSE' ? <Fuel size={18} className="shrink-0" /> : <Tag size={18} className="shrink-0" />}<span className="font-semibold text-sm md:text-base">{persona.adBanner.text}</span></div>
                  <button className="text-sm font-bold underline hover:no-underline whitespace-nowrap">{persona.adBanner.link}</button>
               </div>
+              </HL>
               <HeroCarousel persona={persona} />
+              <HL type="personalized">
               <section>
                 <div className="flex justify-between items-end mb-4 border-b border-gray-200 pb-2">
                   <div className="flex items-center gap-3"><h2 className="text-xl md:text-2xl font-bold text-gray-800">{persona.secondarySection.title}</h2>{currentPersonaKey === 'FAMILY' && (<button className="hidden sm:flex items-center gap-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 px-3 py-1 rounded-full text-xs font-bold transition-colors"><Sparkles size={12} /> Generate Meal Plan</button>)}</div>
@@ -1252,10 +1320,14 @@
                    </div>
                 </div>
               </section>
+              </HL>
+              <HL type="personalized">
               <section>
                 <div className="flex items-center gap-2 mb-4"><Zap className="text-yellow-500 fill-current" /><h2 className="text-xl md:text-2xl font-bold text-gray-800">Recommended For You</h2><div className="group relative ml-2"><Info size={16} className="text-gray-400 cursor-help" /><div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-gray-800 text-white text-xs p-2 rounded hidden group-hover:block z-20">Recommendations based on your purchase history in {currentPersonaKey === 'BUSINESS' ? 'Office Supplies' : currentPersonaKey === 'TECH' ? 'Electronics' : 'Groceries'}.</div></div></div>
                 <div className="flex gap-4 overflow-x-auto pb-6 pt-2 scrollbar-hide -mx-4 px-4">{[...persona.recommended, ...persona.recommended, ...persona.recommended].map((product, index) => (<div key={`{index}`} className="min-w-[260px] w-[260px]"><ProductCard product={product} /></div>))}<div className="min-w-[260px] w-[260px]"><ProductCard product={{ name: "Kirkland Signature Mixing Bowls, 10-piece", price: 34.99, savings: 0, rating: 4.9 }} /></div></div>
               </section>
+              </HL>
+              <HL type="ads" when={persona.largeBanner.isSponsored}>
               <div>
                 <section className={`w-full h-36 md:h-40 rounded-xl overflow-hidden relative shadow-lg ${persona.largeBanner.color}`}>
                    <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">{React.cloneElement(persona.largeBanner.icon, { size: 200 })}</div>
@@ -1263,11 +1335,17 @@
                 </section>
                 {persona.largeBanner.isSponsored && <div className="flex justify-end pt-1 pr-1"><span className="text-[10px] text-gray-500 uppercase">Sponsored</span></div>}
               </div>
+              </HL>
+              <HL type="merch">
               <section><SectionHeader title="Shop by Department" /><div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">{["Grocery", "Electronics", "Furniture", "Tires & Auto", "Floral", "Gift Cards"].map((dept) => (<div key={dept} className="bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center text-center h-32 cursor-pointer transition-colors"><div className="w-12 h-12 bg-gray-200 rounded-full mb-2 flex items-center justify-center"><Package className="text-gray-400" size={20} /></div><span className="font-semibold text-gray-700 text-sm">{dept}</span></div>))}</div></section>
+              </HL>
+              <HL type="merch">
               <section className="bg-red-50 rounded-xl p-6 border border-red-100 mt-8">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6"><div><h2 className="text-2xl font-bold text-red-800">Costco Treasure Hunt</h2><p className="text-red-600">What's new in the warehouse this week.</p></div><button className="text-red-700 border border-red-200 bg-white px-4 py-2 rounded font-semibold hover:bg-red-50 transition-colors">Find a Warehouse</button></div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">{[1, 2, 3, 4].map((i) => (<div key={i} className="bg-white p-4 rounded-lg shadow-sm border border-red-100"><div className="h-32 bg-gray-100 rounded mb-2 flex items-center justify-center text-gray-300">New Item</div><div className="font-bold text-gray-900">$19.99</div><div className="text-sm text-gray-600">Seasonal Special Item</div></div>))}</div>
               </section>
+              </HL>
+              <HL type="ads" when={persona.middleBanner.isSponsored}>
               <div className="mt-8 mb-8">
                 <section className={`w-full h-36 md:h-40 rounded-xl overflow-hidden relative shadow-lg ${persona.middleBanner.color}`}>
                    <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">{React.cloneElement(persona.middleBanner.icon, { size: 200 })}</div>
@@ -1275,19 +1353,25 @@
                 </section>
                 {persona.middleBanner.isSponsored && <div className="flex justify-end pt-1 pr-1"><span className="text-[10px] text-gray-500 uppercase">Sponsored</span></div>}
               </div>
+              </HL>
               <section>
                 <div className="flex items-center gap-2 mb-4"><ArrowRightLeft className="text-gray-400" size={20} /><h2 className="text-xl md:text-2xl font-bold text-gray-800">Merchandising Spotlight</h2></div>
                 <div className="flex flex-col gap-8">
+                  <HL type="merch">
                   <div className="bg-white border-2 border-blue-100 rounded-lg overflow-hidden shadow-sm relative">
                      <div className="bg-blue-50 px-6 py-3 border-b border-blue-100 flex items-center justify-between"><div className="flex items-center gap-2"><div className="bg-blue-600 text-white p-1 rounded-full"><Megaphone size={14} /></div><div><h3 className="font-bold text-blue-900 text-lg leading-tight">{PUSH_CONTENT.title}</h3><p className="text-xs text-blue-700 font-medium uppercase tracking-wide">Global Promotion (Push)</p></div></div><a href="#" className="text-blue-700 text-sm font-semibold hover:underline flex items-center">Shop All <ChevronRight size={16} /></a></div>
                      <div className="p-6"><div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">{PUSH_CONTENT.products.map((product) => (<ProductCard key={product.id} product={product} compact={true} />))}<div className="min-w-[100px] flex flex-col items-center justify-center text-blue-600 cursor-pointer hover:bg-gray-50 rounded-lg border border-dashed border-gray-300"><div className="p-2 bg-blue-50 rounded-full mb-2"><ChevronRight /></div><span className="text-sm font-semibold">View All</span></div></div></div>
                   </div>
+                  </HL>
+                  <HL type="personalized">
                   <div className="bg-white border-2 border-purple-100 rounded-lg overflow-hidden shadow-sm relative">
                      <div className="bg-purple-50 px-6 py-3 border-b border-purple-100 flex items-center justify-between"><div className="flex items-center gap-2"><div className="bg-purple-600 text-white p-1 rounded-full"><Zap size={14} /></div><div><h3 className="font-bold text-purple-900 text-lg leading-tight">{persona.pullSlot.title}</h3><p className="text-xs text-purple-700 font-medium uppercase tracking-wide">Personalized (Pull)</p></div></div><a href="#" className="text-purple-700 text-sm font-semibold hover:underline flex items-center">Shop All <ChevronRight size={16} /></a></div>
                      <div className="p-6"><div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">{persona.pullSlot.products.map((product) => (<ProductCard key={product.id} product={product} compact={true} />))}<div className="min-w-[100px] flex flex-col items-center justify-center text-purple-600 cursor-pointer hover:bg-gray-50 rounded-lg border border-dashed border-gray-300"><div className="p-2 bg-purple-50 rounded-full mb-2"><ChevronRight /></div><span className="text-sm font-semibold">View All</span></div></div></div>
                   </div>
+                  </HL>
                 </div>
               </section>
+              <HL type="ads" when={persona.bottomBanner.isSponsored}>
               <div>
                 <section className={`w-full h-36 md:h-40 rounded-xl overflow-hidden relative shadow-lg mt-8 ${persona.bottomBanner.color}`}>
                    <div className="absolute right-0 bottom-0 opacity-10 transform translate-x-1/4 translate-y-1/4">{React.cloneElement(persona.bottomBanner.icon, { size: 200 })}</div>
@@ -1295,16 +1379,19 @@
                 </section>
                 {persona.bottomBanner.isSponsored && <div className="flex justify-end pt-1 pr-1"><span className="text-[10px] text-gray-500 uppercase">Sponsored</span></div>}
               </div>
-              <BentoGrid persona={persona} />
-              <CategorySpotlight persona={persona} />
-              <BrandShowcase persona={persona} />
+              </HL>
+              <HL type="personalized"><BentoGrid persona={persona} /></HL>
+              <HL type="merch"><CategorySpotlight persona={persona} /></HL>
+              <HL type="ads"><BrandShowcase persona={persona} /></HL>
+              <HL type="merch">
               <section className="mt-8 mb-8">
                 <SectionHeader title={persona.finalRecommendations.title} linkText="View More" />
                 <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
                    <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">{persona.finalRecommendations.products.map((product) => (<ProductCard key={product.id} product={product} compact={true} />))}</div>
                 </div>
               </section>
-              <SponsoredBrandUnit persona={persona} />
+              </HL>
+              <HL type="ads"><SponsoredBrandUnit persona={persona} /></HL>
             </main>
             <footer className="bg-gray-100 border-t border-gray-200 mt-12 py-12 text-gray-600 text-sm">
               <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -1317,6 +1404,7 @@
             </footer>
             <CostcoAssistant persona={persona} />
           </div>
+          </HighlightContext.Provider>
         );
       }
       // 5. Render the App
