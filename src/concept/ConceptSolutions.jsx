@@ -805,6 +805,22 @@ export default function ConceptSolutions() {
         </section>
       ))}
 
+      {/* ---------- PARTNERS LINK ---------- */}
+      <section className="py-12 w-full bg-gray-50 border-y border-gray-200">
+        <div className="container-custom flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-lg text-gray-800">
+            <strong>Prefer to work through a partner?</strong> Many of
+            our partners offer managed service and activation support.
+          </p>
+          <Link
+            to="/partners"
+            className="text-costco-blue font-bold inline-flex items-center gap-2 hover:underline shrink-0"
+          >
+            Meet our partners <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
       {/* ---------- ADVERTISER FAQs ---------- */}
       <section id="sol-faqs" className="py-16 lg:py-24 w-full bg-white scroll-mt-44">
         <div className="container-custom">

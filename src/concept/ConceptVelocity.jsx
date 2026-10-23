@@ -409,6 +409,22 @@ export default function ConceptVelocity() {
         </div>
       </section>
 
+      {/* ---------- PARTNERS LINK ---------- */}
+      <section className="py-12 w-full bg-white border-b border-gray-200">
+        <div className="container-custom flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-lg text-gray-800">
+            <strong>An open platform.</strong> See the partners connected
+            into Costco Velocity.
+          </p>
+          <Link
+            to="/partners"
+            className="text-costco-blue font-bold inline-flex items-center gap-2 hover:underline shrink-0"
+          >
+            Meet our partners <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
       {/* ---------- FAQS ---------- */}
       <section className="py-16 lg:py-24 w-full bg-white">
         <div className="container-custom">
